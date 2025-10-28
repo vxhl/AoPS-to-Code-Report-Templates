@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ report_metadata.title }} - {{ report_metadata.subtitle }}</title>
+<style>
+ /* Base Tufte CSS */
+ html { font-size: 15px; }
+
+ body {
+  width: 100%;
+  color: #111;
+  max-width: 2530px;
+  overflow-x: none;
+  counter-reset: sidenote-counter;
+  background-color: #fffff8;
+  font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+  display: flex;
+}
+/* Layout adjustments */
+#main-content {
+  margin-left: 0%;
+  width: 80%; /* Adjusted for majority screen usage */
+}
+#sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  max-width: 19%;
+  padding: 1rem;
+  background-color: #f4f4f4;
+  height: 100vh;
+  overflow-y: auto;
+  width:16%;
+  overflow-x:hidden;
+  font-size: 1.2rem;
+  font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+}
+/* Sticky Sidebar */
+#sidebar ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+#sidebar li {
+  padding: 0.35rem 0;
+}
+#sidebar a {
+  all: unset;
+  color: #111;
+  text-decoration: none !important;
+  font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+}
+#sidebar a:hover {
+  text-decoration: underline !important;
+}
+#sidebar .sidebar-section {
+  font-weight: bold;
+  font-size: large;
+}
+#sidebar .sidebar-subsection {
+  margin-left: 1rem;
+  font-weight: normal;
+  font-size: medium;
+}
+/* Typography */
+h1.title {
+  font-weight: 400;
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+  font-size: 3.2rem;
+  line-height: 1;
+}
+h1 {
+  font-weight: 400;
+  margin-top: 2.1rem;
+  margin-bottom: 0;
+  font-size: 2.2rem;
+  line-height: 1;
+}
+h2 {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.7rem;
+  margin-bottom: 0;
+  line-height: 1;
+}
+h3.subtitle {
+  font-weight: 400;
+  font-style: italic;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  display: block;
+  line-height: 1;
+}
+h3 {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  line-height: 1;
+}
+h4 {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.3rem;
+  margin-top: 1.3rem;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+h4.author, h4.date {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 1rem auto;
+  line-height: 1;
+}
+/* Layout */
+article {
+  position: relative;
+  padding: 0rem 0rem 0rem 5rem;
+}
+p, ol, ul { font-size: 1.4rem; }
+p {
+  line-height: 2rem;
+  margin-top: 1.4rem;
+  margin-bottom: 1.4rem;
+  padding-right: 0;
+  vertical-align: baseline;
+  width: 100%;
+}
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+.table-caption {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-style: italic;
+}
+.table-label {
+  font-weight: bold;
+  font-style: normal;
+}
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; white-space: nowrap; }
+th { background-color: #f4f4f4; cursor: pointer; position: relative; }
+.table-container { overflow-x: auto; max-width: 100%; }
+.figure { text-align: center; margin: 20px 0; }
+/* Tooltip for long header text */
+th[title]:hover::after {
+  content: attr(title);
+  display: block;
+  position: absolute;
+  background: #444;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+  top: 100%;
+  left: 0;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Quotes */
+
+/* Lists */
+ol, ul {
+  width: 100%;
+  -webkit-padding-start: 5%;
+  -webkit-padding-end: 5%;
+}
+li { padding: 0.5rem 0; }
+/* Images and figures */
+img {max-width: 100%;}
+div.figure {
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  max-width: 100%;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  margin: 0 0 3em 0;
+}
+figure {
+  margin: 2rem 0;
+  text-align: center;
+}
+figure img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.figure-label {
+  font-weight: bold;
+  font-style: normal;
+}
+figcaption {
+  font-style: italic;
+  font-weight: normal;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+/* Other special elements */
+hr {
+  margin-left: 0;
+  width: 55%;
+  margin: 2rem 0;
+}
+.fullwidth {
+  max-width: 90%;
+  clear: both;
+}
+/* Visualization containers */
+.viz-container {
+  width: 100%;
+  margin: 2rem 0;
+}
+#references {
+font-size: 13px;
+line-height: 1.6;
+}
+/* Responsive design */
+@media screen and (max-width: 760px) {
+  body {
+      display: block;
+  }
+  #sidebar {
+      position: static;
+      width: 100%;
+  }
+  #main-content {
+      width: 100%;
+  }
+  p, footer, ol, ul, table, hr { width: 90%; }
+  pre { width: 87.5%; }
+  ul { width: 85%; }
+  figure { max-width: 90%; }
+  div.fullwidth p.caption { max-width: none; }
+  label { cursor: pointer; }
+  div.figure { max-width: 90%; }
+  pre {
+      width: 90%;
+      padding: 0;
+  }
+}
+
+.references {
+    counter-reset: reference-counter;
+    list-style: none;
+    padding-left: 0;
+    font-family: "Times New Roman", Times, serif;
+    line-height: 1.6;
+    font-size: 14pt;
+  }
+
+  .reference-item {
+    margin-bottom: 15px;
+    text-indent: -20px;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .reference-item::before {
+    counter-increment: reference-counter;
+    content: "[" counter(reference-counter) "] ";
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+
+  .reference-item a {
+    color: #003399;
+    text-decoration: none;
+  }
+
+  .reference-item a:hover {
+    text-decoration: underline;
+  }
+
+/* AOPS Info Section Styles */
+.mupdna-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.mupdna-label {
+  color: #3498DB;
+  font-size: 17px;
+}
+
+.mupdna-link {
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.mupdna-link-text {
+  color: #3498DB;
+  font-size: 17px;
+  transition: text-decoration 0.3s ease;
+}
+
+.mupdna-link-text:hover {
+  text-decoration: underline;
+}
+
+.imported-goals-section {
+    flex: 0 0 auto;
+    min-height: 0;
+    max-height: 35vh;
+    padding: 10px 20px;
+    color: #D1D1D1;
+    background: #ffffff0d;
+    margin-bottom: 5px;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .paragraph{
+    font-size: 2.5vh;
+    font-weight: bold;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .test-tag {
+    background: #1A2329;
+    color: #89969F;
+    padding: 4px 12px;
+    border-radius: 2vw;
+    font-size: 15px;
+    white-space: nowrap;
+    border: 1px solid #404040;
+    box-sizing: border-box; /* Include padding in width */
+    max-width: 60%; /* Allow tags to shrink if needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .test-flex {
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+    flex-shrink: 1;
+    position: relative;
+    contain: content;
+    display: flex;
+    flex-direction: column;
+    max-height: 8rem;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    background-color: #262B2F;
+  }
+
+  .imported-goals {
+    height: auto;
+    max-height: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    position: relative;
+  }
+  .goal-card {
+    border-radius: 8px;
+    padding: 0px 16px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .key-question-tag {
+    width: 122px;
+    height: 30px;
+    top: 9px;
+    right: 9px !important;
+    position: relative;
+  }
+  .question-box {
+    background: #1A2634;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .question-header {
+    background: #0F1924;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 4px 20px;
+    background-color: #1c786a;
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+
+  }
+
+  .question-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    background-color: #1c786a;
+    flex-wrap: wrap;
+  }
+
+
+  .question-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    height: 40px;
+
+    .key-icon {
+      width: 32px;
+      height: 32px;
+      background: #00BFA5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #BFB864;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.4;
+      color: white;
+    }
+  }
+
+
+  .question-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .priority-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #c5c5c5;
+    padding: 6px 12px;
+    border-radius: 2vw;
+    min-width: 120px;
+
+    &[data-priority="high"] {
+      .priority-icon {
+      width: 19px;
+      }
+    }
+
+    span {
+      color: #323131;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: Segoe UI Regular,Helvetica Neue,Arial,sans-serif;
+    }
+  }
+
+  .test-section {
+    margin-top: 0;
+    padding: 16px 20px;
+    background-color: #262B2F;
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .test-header , .hypothesis-header{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #1A2329;
+    padding: 6px 10px 0px 10px;
+    font-size: 18px;
+  }
+
+    .test-icon , .hypothesis-icon{
+      width: 32px;
+      height: 32px;
+      background: #1A2329;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .test-icon{
+      border: 1px solid #FFFFFF;
+    }
+
+    .test-text {
+      color: #89969F;
+      font-size: 16px;
+    }
+
+  .test-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    background-color: #1A2329;
+    padding: 5px 10px 5px 54px;
+    box-sizing: border-box; /* Include padding in width calculation */
+    max-width: 100%;
+    width: 100%;
+    border-left: 3px solid #26A6A6;
+  }
+
+  .test-tag {
+    background: #1A2329;
+    color: #89969F;
+    padding: 4px 12px;
+    border-radius: 2vw;
+    font-size: 15px;
+    white-space: nowrap;
+    border: 1px solid #404040;
+    box-sizing: border-box; /* Include padding in width */
+    max-width: 60%; /* Allow tags to shrink if needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+    .placeholder-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #ff0000;
+
+    &.key-question-icon{
+      font-weight: 700;
+      padding: 0 2px;
+      border: 1px solid #BFB864;
+      background-color: #bfb864;
+      color: #fff;
+      font-family: Segoe UI Regular, Helvetica Neue, Arial, sans-serif;
+      width: 32px;
+      height: 32px;
+      font-size: 15px;
+    }
+  }
+
+    .test-section {
+    width: 100%;
+    position: relative;
+    padding: 6px 6px 6px 15px;
+    background-color: #262B2F;
+  }
+
+  .test-header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-left: 3px solid #26A6A6;
+  }
+
+  .test-navigation {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .test-count {
+    font-size: 12px;
+    color: #aaa;
+    margin-right: 5px;
+  }
+
+  .carousel-nav {
+    background-color: #2a3a4a;
+    border: none;
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    padding: 0;
+    position:absolute
+  }
+
+  .carousel-nav:hover:not([disabled]) {
+    background-color: #3a4a5a;
+  }
+
+  .carousel-nav[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .test-text {
+    margin-right: 8px;
+    flex: 1;
+  }
+
+  .no-tests-message {
+    width: 100%;
+    padding: 15px;
+    background-color: rgba(30, 40, 50, 0.3);
+    border-radius: 8px;
+    text-align: center;
+    color: #aaa;
+  }
+  .next{
+    right: 5px;
+      top: 39px;
+  }
+  .prev{
+    z-index: 1;
+    top: 39px;
+    left: 5px;
+  }
+  .key-question-tag {
+    width: 122px;
+    height: 30px;
+    top: 9px;
+    right: 21px;
+    position: relative;
+  }
+
+  .test-section-active {
+    display: block;
+    padding: 15px 35px;
+  }
+
+
+/* ========================================
+   OBVIOUS GAP REPORT - HYBRID DESIGN
+   Combines academic structure with modern visuals
+   ======================================== */
+
+/* ========================================
+   0. LAYOUT OVERRIDES
+   ======================================== */
+#main-content {
+    margin-left: 0;
+    width: 100%;
+}
+
+/* ========================================
+   1. UV STAMP - FIXED POSITION
+   ======================================== */
+.uv-stamp {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    width: 80px;
+    height: 80px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+    background: #000000;
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.uv-stamp:hover {
+    opacity: 1;
+}
+
+.uv-stamp img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+/* ========================================
+   2. TOP NAVIGATION BAR
+   ======================================== */
+.top-navigation {
+    position: sticky;
+    top: 0;
+    background: white;
+    border-bottom: 2px solid #e0e5ed;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+    padding: 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-link {
+    padding: 18px 30px;
+    color: #525866;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #26a6a6;
+    background: #f8f9fa;
+}
+
+.nav-link.active {
+    color: #26a6a6;
+    border-bottom-color: #26a6a6;
+    font-weight: 600;
+}
+
+/* Dropdown Navigation */
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1001;
+    border-radius: 4px;
+    border: 1px solid #e0e5ed;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-content a {
+    color: #525866;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #f8f9fa;
+    color: #26a6a6;
+}
+
+.nav-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ========================================
+   2. SUMMARY BAR
+   ======================================== */
+.summary-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 30px;
+    margin: 1.5rem 0 2rem 0;
+    background: white;
+    border: 2px solid #e0e5ed;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    gap: 30px;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pdna-item {
+    flex: 1;
+    min-width: 0;
+}
+
+.pdna-icon {
+    flex-shrink: 0;
+    margin-right: 4px;
+}
+
+.summary-value-link {
+    color: #3498DB;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.summary-value-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.kq-item {
+    display: flex;
+    align-items: center;
+}
+
+.kq-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 3px 18px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e0e5ed;
+}
+
+.kq-icon {
+    margin-top:7px;
+    width: 90px;
+}
+
+.summary-label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #525866;
+}
+
+.summary-value {
+    font-size: 15px;
+    color: #212529;
+    font-weight: 600;
+}
+
+.summary-item:last-child {
+    padding: 8px 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e0e5ed;
+}
+
+.summary-divider {
+    width: 1px;
+    height: 30px;
+    background: #e0e5ed;
+}
+
+/* ========================================
+   2. HYPOTHESIS CALLOUT
+   ======================================== */
+.hypothesis-callout {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px 25px;
+    margin: 1.5rem 0 2rem 0;
+    background: linear-gradient(135deg, #e6f7f7 0%, #d0eeee 100%);
+    border-left: 4px solid #26a6a6;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(38, 166, 166, 0.1);
+}
+
+.callout-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.callout-content {
+    flex: 1;
+}
+
+.callout-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #1e8585;
+    margin-bottom: 8px;
+}
+
+.callout-content p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #212529;
+    font-style: italic;
+    font-weight: 500;
+}
+
+/* ========================================
+   4. SECTION HEADER CARDS
+   ======================================== */
+.section-header-card {
+    background: #f8f9fa;
+    border-left: 4px solid #26a6a6;
+    padding: 20px 25px;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+}
+
+.section-header-card p {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #525866;
+}
+
+/* ========================================
+   4. ENHANCED SGQ CONTAINER
+   ======================================== */
+.sgq-visual-container {
+    margin: 2rem 0;
+    padding: 2rem;
+    background: linear-gradient(to bottom, #fafbfc 0%, #f0f2f5 100%);
+    border-radius: 8px;
+}
+
+.sgq-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-evenly;
+    gap: 20px;
+    min-height: 500px;
+}
+
+.sgq-container .column {
+    width: 30%;
+    margin-bottom: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+/* Editor Styles */
+.editor {
+    min-width: 300px;
+    border: 2px solid #525866;
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    background: white;
+    overflow: hidden;
+    height: 100%;
+}
+
+.editor-title {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 12px;
+    background: linear-gradient(135deg, #525866 0%, #3d4451 100%);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.heading {
+    margin: 0 30px;
+}
+
+/* Gap and Key Question Styles */
+.editor.gap,
+.editor.keyquestion {
+    border: 2px solid #26a6a6;
+    min-height: calc(15vh + 50px);
+    height: auto;
+}
+
+.editor.gap .editor-title,
+.editor.keyquestion .editor-title {
+    background: linear-gradient(135deg, #26a6a6 0%, #1e8585 100%);
+}
+
+.editor.gap.pulsing {
+    animation: gapPulse 2s ease-in-out infinite;
+}
+
+@keyframes gapPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(38, 166, 166, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(38, 166, 166, 0);
+    }
+}
+
+.editor.keyquestion {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Current State & Future State Styles */
+.editor.future,
+.editor.situation {
+    border: 2px solid #de836a;
+    margin-top: 140px;
+}
+
+.editor.future .editor-title,
+.editor.situation .editor-title {
+    background: linear-gradient(135deg, #de836a 0%, #c96f54 100%);
+}
+
+.editor.situation ul,
+.editor.future ul {
+    list-style: none;
+    padding: 0;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.editor.situation ul > li,
+.editor.future ul > li {
+    padding-left: 30px;
+    padding-top: 17px;
+    position: relative;
+}
+
+.editor.situation ul li::before,
+.editor.future ul li::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #de836a;
+    border-radius: 50%;
+    position: absolute;
+    left: 10px;
+    top: 24px;
+}
+
+.editor.situation ul li.label strong,
+.editor.future ul li.label strong {
+    font-size: 16px;
+    color: #212529;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.content-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #525866;
+    margin-top: 5px;
+}
+
+/* Gap Content */
+.gap-content {
+    padding: 20px;
+    font-size: 16px;
+    color: #212529;
+    line-height: 1.7;
+    font-weight: 500;
+}
+
+/* Bridge Image with Animation */
+.key-images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.situation-bridge {
+    height: 13vw;
+    max-height: 150px;
+    min-height: 80px;
+    width: 100%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cpath d='M10,50 Q50,20 100,50 T190,50' fill='none' stroke='%2326a6a6' stroke-width='3' stroke-dasharray='5,5'/%3E%3Cpolygon points='190,50 185,45 185,55' fill='%2326a6a6'/%3E%3Cpath d='M10,50 Q50,80 100,50 T190,50' fill='none' stroke='%2326a6a6' stroke-width='3' stroke-dasharray='5,5' opacity='0.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.situation-bridge.animated {
+    animation: bridgeFlow 3s ease-in-out infinite;
+}
+
+@keyframes bridgeFlow {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Key Questions List in SGQ Container */
+.questions-list {
+    padding: 15px;
+    min-height: calc(15vh - 20px);
+}
+
+.question-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.question-item:hover {
+    background: #f0f2f5;
+    border-left-color: #26a6a6;
+}
+
+.keyquestion-number {
+    color: #26a6a6;
+    font-weight: bold;
+    margin-right: 10px;
+    min-width: 35px;
+    font-size: 16px;
+}
+
+.question-text {
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #212529;
+}
+
+/* ========================================
+   5. KEY QUESTIONS VERTICAL LAYOUT
+   ======================================== */
+.key-questions-container {
+    margin: 2rem 0;
+}
+
+.key-question-item {
+    margin-bottom: 30px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.key-question-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.key-question-item::after {
+    content: "Click to view detailed evaluation";
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    font-size: 12px;
+    color: #26a6a6;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-style: italic;
+}
+
+.key-question-item:hover::after {
+    opacity: 1;
+}
+
+/* ========================================
+   6. VALIDATION STATUS & ANALYSIS OUTCOME
+   ======================================== */
+.validation-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    width: fit-content;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+}
+
+.validation-status.validated {
+    background: #4CAF50;
+    color: white;
+}
+
+.validation-status.not-validated {
+    background: #f44336;
+    color: white;
+}
+
+.validation-status.partial {
+    background: #FF9800;
+    color: white;
+}
+
+/* Analysis Summary Section */
+.analysis-summary-section {
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 25px;
+    margin: 2rem 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.analysis-summary-section h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    /* color: #2e7d32; */
+    font-size: 1.5rem;
+}
+
+.analysis-summary-section p {
+    margin: 1rem 0;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: #212529;
+}
+
+.analysis-summary-section p strong {
+    /* color: #2e7d32; */
+}
+
+/* ========================================
+   7. RESULTS & ANALYSIS CARDS
+   ======================================== */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 2rem 0;
+}
+
+.result-card {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.result-card.success {
+    border-left-color: #4CAF50;
+}
+
+.result-card .result-icon {
+    margin-bottom: 15px;
+}
+
+.result-card h3 {
+    margin: 0 0 10px 0;
+    color: #212529;
+    font-size: 1.3rem;
+}
+
+.result-card p {
+    margin: 0;
+    color: #525866;
+    line-height: 1.6;
+}
+
+.findings-card,
+.interpretation-card {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ========================================
+   8. INSIGHTS & RECOMMENDATIONS
+   ======================================== */
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 2rem 0;
+}
+
+.insight-card {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 4px solid #26a6a6;
+}
+
+.insight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.insight-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.insight-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #26a6a6 0%, #1e8585 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.insight-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #212529;
+}
+
+.insight-card p {
+    margin: 0;
+    line-height: 1.7;
+    color: #525866;
+}
+
+/* Recommendations */
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 2rem 0;
+}
+
+.recommendation-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recommendation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+}
+
+.recommendation-card.high-priority::before {
+    background: #f44336;
+}
+
+.recommendation-card.medium-priority::before {
+    background: #FF9800;
+}
+
+.recommendation-card.low-priority::before {
+    background: #4CAF50;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.priority-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.high-priority .priority-badge {
+    background: #FFEBEE;
+    color: #f44336;
+}
+
+.medium-priority .priority-badge {
+    background: #FFF3E0;
+    color: #FF9800;
+}
+
+.low-priority .priority-badge {
+    background: #E8F5E9;
+    color: #4CAF50;
+}
+
+.recommendation-card h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    color: #212529;
+}
+
+.recommendation-card p {
+    margin: 0;
+    line-height: 1.6;
+    color: #525866;
+    font-size: 0.95rem;
+}
+
+.future-research-card {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 2rem;
+    border-left: 4px solid #3498DB;
+}
+
+.future-research-card h4 {
+    margin: 0 0 10px 0;
+    color: #1565c0;
+    font-size: 1.2rem;
+}
+
+.future-research-card p {
+    margin: 0;
+    line-height: 1.7;
+    color: #424242;
+}
+
+/* ========================================
+   9. RESPONSIVE DESIGN
+   ======================================== */
+@media screen and (max-width: 1200px) {
+    .nav-container {
+        flex-wrap: wrap;
+    }
+
+    .nav-link {
+        padding: 15px 20px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 1620px) {
+    .sgq-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .sgq-container .column {
+        width: 100% !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .summary-bar {
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: flex-start;
+    }
+
+    .summary-divider {
+        display: none;
+    }
+
+    .pdna-item {
+        flex: 1 1 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 12px 20px;
+        text-align: center;
+        border-bottom: 1px solid #e0e5ed;
+    }
+
+    .carousel-outer-container {
+        padding: 0 50px;
+    }
+
+    .carousel-nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+
+    .summary-bar {
+        padding: 12px 15px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .summary-label {
+        font-size: 11px;
+    }
+
+    .summary-value,
+    .summary-value-link {
+        font-size: 13px;
+    }
+
+    .hypothesis-callout {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 20px;
+    }
+
+    .analysis-summary-section {
+        padding: 20px;
+    }
+
+    .analysis-summary-section h3 {
+        font-size: 1.3rem;
+    }
+
+    .insights-grid,
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kq-item,
+    .summary-item:last-child {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ========================================
+   10. ANIMATIONS & ENTRANCE EFFECTS
+   ======================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-card,
+.insight-card,
+.recommendation-card,
+.hypothesis-callout,
+.analysis-summary-section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* ========================================
+   11. SIMPLIFIED ANALYSIS DETAILS
+   ======================================== */
+.evaluation-details-simple {
+    background: #ffffff;
+    border: none;
+    border-radius: 0;
+    padding: 20px 25px;
+    margin: 20px 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.evaluation-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 25px;
+    font-style: normal;
+    border-bottom: 2px solid #26a6a6;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.evaluation-category-simple {
+    background: transparent;
+    padding: 10px 0;
+    margin: 10px 0;
+    border-radius: 0;
+    border-left: none;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.category-header-simple {
+    margin-bottom: 8px;
+}
+
+.category-name-simple {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #26a6a6;
+    font-style: normal;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.category-comment-simple {
+    color: #333333;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin: 0;
+    font-style: italic;
+}
+
+.overall-evaluation-simple {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 15px 0;
+    margin: 15px 0;
+    border-top: 2px solid #26a6a6;
+}
+
+.overall-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #26a6a6;
+    margin-bottom: 10px;
+    font-style: normal;
+}
+
+.overall-summary {
+    color: #333333;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* ========================================
+   12. PROBLEM-SOLUTION FLOWCHART GRAPH
+   ======================================== */
+.flowchart-container {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    padding: 30px;
+    margin: 30px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    min-height: 800px;
+}
+
+/* Problem Statement Node - Dark Gray with White Text */
+.problem-statement-node {
+    display: flex;
+    align-items: center;
+    background: #4a4a4a;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    padding: 20px 25px;
+    margin: 0 auto 40px;
+    max-width: 600px;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.problem-icon {
+    width: 40px;
+    height: 40px;
+    background: #000000;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.problem-icon-inner {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.problem-text {
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+/* Flow Lines */
+.flow-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.main-flow-line {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    width: 2px;
+    height: 60px;
+    background: #999999;
+    transform: translateX(-50%);
+}
+
+.main-flow-line::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid #999999;
+}
+
+.branch-line {
+    position: absolute;
+    top: 260px;
+    width: 2px;
+    height: 40px;
+    background: #999999;
+}
+
+.left-branch {
+    left: 30%;
+    transform: translateX(-50%);
+}
+
+.right-branch {
+    left: 70%;
+    transform: translateX(-50%);
+}
+
+.branch-line::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid #999999;
+}
+
+/* Solution Ideas Container */
+.solution-ideas-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.solution-branch {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Idea Nodes - White Rounded Rectangles */
+.idea-node, .sub-idea-node {
+    display: flex;
+    align-items: flex-start;
+    background: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.idea-node:hover, .sub-idea-node:hover {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.idea-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.idea-icon svg {
+    width: 26px;
+    height: 23px;
+}
+
+.idea-content {
+    flex: 1;
+}
+
+.idea-number {
+    background: #333333;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.idea-text {
+    color: #333333;
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Sub-ideas */
+.sub-ideas {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sub-idea-node {
+    background: #f8f8f8;
+    border-left: 3px solid #999999;
+}
+
+/* Key Questions Container */
+.key-questions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Question Nodes - Light Teal Background */
+.question-node {
+    display: flex;
+    align-items: flex-start;
+    background: #b8e6e6;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.question-node:hover {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.question-label {
+    background: #90d4d4;
+    color: #ffffff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.question-content {
+    flex: 1;
+}
+
+.question-header {
+    color: #333333;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.question-text {
+    color: #333333;
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .solution-ideas-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .sub-ideas {
+        margin-left: 15px;
+    }
+    
+    .flowchart-container {
+        padding: 20px;
+    }
+    
+    .problem-statement-node {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .problem-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+
+</style>
+</head>
+<body>
+<div id="main-content">
+    <!-- UV Stamp - Fixed Position -->
+    <div class="uv-stamp">
+        <img src="uv_stamp.png" alt="UV Team Mockups" />
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="top-navigation">
+        <div class="nav-container">
+            <a href="#problem-framework" class="nav-link">1. Problem Framework</a>
+            <div class="nav-dropdown">
+                <a href="#key-questions" class="nav-link">2. Key Questions</a>
+                <div class="dropdown-content">
+                    {% for kq in key_questions %}
+                    <a href="#kq-{{ kq.question_number }}" class="dropdown-item">Question {{ kq.question_number }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <a href="#results" class="nav-link">3. Results</a>
+            <a href="#discussion-conclusion" class="nav-link">4. Recommendations</a>
+        </div>
+    </nav>
+
+    <article>
+    <h1 class="title">{{ report_metadata.title }}</h1>
+    <h3 class="subtitle">{{ report_metadata.subtitle }}</h3>
+    <h4 class="author">Author: <strong>{{ report_metadata.author }}</strong></h4>
+    <h4 id="current-date"></h4>
+
+    <!-- Enhanced Summary Bar -->
+    <div class="summary-bar">
+        <div class="summary-item pdna-item">
+            <span class="summary-label">PDNA:</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16.001" class="pdna-icon"><defs><style>.a{fill:#3498DB;}</style></defs><path class="a" d="M15.782,2.97a.75.75,0,0,0-1.061,0,4.953,4.953,0,0,1-3.6,1.622,4.562,4.562,0,0,1,.482-3.4A.75.75,0,1,0,10.395.309,5.726,5.726,0,0,0,9.612,4.57,4.46,4.46,0,0,0,5.971,5.72C4.856,6.836,4.744,8.337,4.742,9.84a5.258,5.258,0,0,0-4.6,2.217.75.75,0,0,0,1.21.887,3.811,3.811,0,0,1,3.386-1.605c-.028,1.39-.228,2.561-1.384,3.273a.75.75,0,1,0,.786,1.278C5.914,14.8,6.2,13.079,6.24,11.4c1.462.083,2.947.1,4.069-1.148a5.022,5.022,0,0,0,1.01-4.171A6.439,6.439,0,0,0,15.782,4.03.75.75,0,0,0,15.782,2.97ZM9.194,9.249c-.645.716-1.551.727-2.953.648a4.3,4.3,0,0,1,.79-3.116c.718-.718,1.494-.745,2.777-.7A3.755,3.755,0,0,1,9.194,9.249Z" transform="translate(-0.001 0)"/></svg>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="summary-value-link">{{ report_metadata.pdna_label }}</a>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-item kq-item">
+            <div class="kq-badge">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NC4wODYiIGhlaWdodD0iMzAuMTE5IiB2aWV3Qm94PSIwIDAgOTQuMDg2IDMwLjExOSI+CiAgPGcgaWQ9Ikdyb3VwXzE2NDY0MSIgZGF0YS1uYW1lPSJHcm91cCAxNjQ2NDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMTguMzE1IC03MzAuNDY5KSI+CiAgICA8cGF0aCBpZD0iUGF0aF84MzU3OCIgZGF0YS1uYW1lPSJQYXRoIDgzNTc4IiBkPSJNMS4xMDcsMEg5Mi45NzlhMS4yMTMsMS4yMTMsMCwwLDEsMS4xMDcsMS4zVjE5LjQzOWExLjIxMywxLjIxMywwLDAsMS0xLjEwNywxLjNIMFYxLjNBMS4yMTMsMS4yMTMsMCwwLDEsMS4xMDcsMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIxOC4zMTUgNzMwLjQ2OSkiIGZpbGw9IiMyNmE2YTYiLz4KICAgIDxwYXRoIGlkPSJQYXRoXzg2MTY1IiBkYXRhLW5hbWU9IlBhdGggODYxNjUiIGQ9Ik0tMzIuMjU4LDBoLTEuOTY4bC0zLjE2Ny00LjE2NGEyLjMsMi4zLDAsMCwxLS4yMTYtLjMxN2gtLjAyNVYwaC0xLjUxMVYtOS4xaDEuNTExdjQuMjc4aC4wMjVhMi4wOTQsMi4wOTQsMCwwLDEsLjIxNi0uMzExTC0zNC4zNC05LjFoMS44MDlMLTM2LjEtNC43MzVabTYuNjMtMi44NWgtNC40MzFBMS44NzMsMS44NzMsMCwwLDAtMjkuNS0xLjQ2YTIuMDY2LDIuMDY2LDAsMCwwLDEuNDU3LjQ4OSwzLjIxMiwzLjIxMiwwLDAsMCwxLjkxMS0uNjIyVi0uNDA2YTQuMzY1LDQuMzY1LDAsMCwxLTIuMzQ5LjU1OSwyLjkwNywyLjkwNywwLDAsMS0yLjI1LS44ODUsMy41NDIsMy41NDIsMCwwLDEtLjgxNi0yLjQ5MSwzLjQ2NCwzLjQ2NCwwLDAsMSwuOS0yLjQ3MiwyLjkzOCwyLjkzOCwwLDAsMSwyLjIzMS0uOTU1LDIuNTYyLDIuNTYyLDAsMCwxLDIuMDYzLjg1NywzLjU1OCwzLjU1OCwwLDAsMSwuNzMsMi4zOFpNLTI3LjA1LTMuODkxYTEuOSwxLjksMCwwLDAtLjM3NS0xLjIzNSwxLjI1MSwxLjI1MSwwLDAsMC0xLjAxNi0uNDQxLDEuNDI5LDEuNDI5LDAsMCwwLTEuMDc2LjQ2MywyLjExNywyLjExNywwLDAsMC0uNTQzLDEuMjEyWk0tMTguMjA1LTYuNWwtMi45MzMsNy41NDFBMi44NDEsMi44NDEsMCwwLDEtMjMuNywzLjA2YTMuMDc1LDMuMDc1LDAsMCwxLS43NzQtLjA4M1YxLjc1MmEyLjA1OSwyLjA1OSwwLDAsMCwuNjM1LjExNCwxLjMxLDEuMzEsMCwwLDAsMS4yMzEtLjgxMmwuNDM4LTEuMDY2TC0yNC43NTYtNi41aDEuNjMxbDEuNTQ5LDQuNzIzcS4wMjUuMDg5LjExNC40N2guMDMycS4wMzItLjE0Ni4xMTQtLjQ1N0wtMTkuNjkxLTYuNVpNLTYuOTY0LDIuOTlILTguNDM3Vi0xLjExN2gtLjAyNUEyLjI3NywyLjI3NywwLDAsMS0xMC42NC4xNTIsMi4zODIsMi4zODIsMCwwLDEtMTIuNTY2LS43MiwzLjYsMy42LDAsMCwxLTEzLjI5My0zLjFhMy45NDUsMy45NDUsMCwwLDEsLjgtMi41ODcsMi42MzEsMi42MzEsMCwwLDEsMi4xNDItLjk2OEEyLDIsMCwwLDEtOC40NjItNS42aC4wMjV2LS45aDEuNDczWk0tOC40MTgtMi45NThWLTMuOGExLjY4OSwxLjY4OSwwLDAsMC0uNDU0LTEuMTkzLDEuNSwxLjUsMCwwLDAtMS4xNTItLjQ4OSwxLjU0NCwxLjU0NCwwLDAsMC0xLjI5Mi42MTMsMi43NzYsMi43NzYsMCwwLDAtLjQ3MywxLjczLDIuNDA2LDIuNDA2LDAsMCwwLC40NTcsMS41NTUsMS40NDksMS40NDksMCwwLDAsMS4xODEuNTY1LDEuNTczLDEuNTczLDAsMCwwLDEuMjYzLS41NTJBMi4wNzEsMi4wNzEsMCwwLDAtOC40MTgtMi45NThaTTEuMDE3LDBILS40NTVWLTEuMDI4SC0uNDgxQTIuMTE5LDIuMTE5LDAsMCwxLTIuNDc0LjE1MnEtMi4zLDAtMi4zLTIuNzY4Vi02LjVoMS40NzN2My43MzJxMCwxLjc1MiwxLjM1MiwxLjc1MkExLjM2NiwxLjM2NiwwLDAsMC0uODc3LTEuNSwxLjg0OSwxLjg0OSwwLDAsMC0uNDU1LTIuNzYxVi02LjVIMS4wMTdabTcuODEtMi44NUg0LjRhMS44NzMsMS44NzMsMCwwLDAsLjU1NSwxLjM5LDIuMDY2LDIuMDY2LDAsMCwwLDEuNDU3LjQ4OUEzLjIxMiwzLjIxMiwwLDAsMCw4LjMyLTEuNTkzVi0uNDA2QTQuMzY1LDQuMzY1LDAsMCwxLDUuOTcxLjE1MmEyLjkwNywyLjkwNywwLDAsMS0yLjI1LS44ODUsMy41NDIsMy41NDIsMCwwLDEtLjgxNi0yLjQ5MUEzLjQ2NCwzLjQ2NCwwLDAsMSwzLjgtNS43YTIuOTM4LDIuOTM4LDAsMCwxLDIuMjMxLS45NTVBMi41NjIsMi41NjIsMCwwLDEsOC4xLTUuOGEzLjU1OCwzLjU1OCwwLDAsMSwuNzMsMi4zOFpNNy40MDYtMy44OTFhMS45LDEuOSwwLDAsMC0uMzc1LTEuMjM1LDEuMjUxLDEuMjUxLDAsMCwwLTEuMDE2LS40NDFBMS40MjksMS40MjksMCwwLDAsNC45NC01LjEsMi4xMTcsMi4xMTcsMCwwLDAsNC40LTMuODkxWk0xMC4yMTQtLjJWLTEuNTY4YTIuOTM4LDIuOTM4LDAsMCwwLDEuODIyLjYyOHExLjMzMywwLDEuMzMzLS43ODdhLjYyLjYyLDAsMCwwLS4xMTQtLjM3OCwxLjA5MSwxLjA5MSwwLDAsMC0uMzA4LS4yNzZBMi40MiwyLjQyLDAsMCwwLDEyLjQ5LTIuNnEtLjI2My0uMS0uNTg3LS4yMTZhNi4yMTYsNi4yMTYsMCwwLDEtLjcyLS4zMzYsMi4xNzcsMi4xNzcsMCwwLDEtLjUzMy0uNCwxLjUyMiwxLjUyMiwwLDAsMS0uMzIxLS41MTEsMS44ODIsMS44ODIsMCwwLDEtLjEwOC0uNjY3LDEuNTQsMS41NCwwLDAsMSwuMjIyLS44MjgsMS45MzEsMS45MzEsMCwwLDEsLjYtLjYsMi44NjEsMi44NjEsMCwwLDEsLjg1MS0uMzY4LDMuODk0LDMuODk0LDAsMCwxLC45ODQtLjEyNCw0LjQ3Myw0LjQ3MywwLDAsMSwxLjYxMi4yNzN2MS4yODlhMi43MTgsMi43MTgsMCwwLDAtMS41NzQtLjQ3LDIuMDU2LDIuMDU2LDAsMCwwLS41LjA1NywxLjMsMS4zLDAsMCwwLS4zODQuMTU5Ljc4MS43ODEsMCwwLDAtLjI0OC4yNDQuNTgzLjU4MywwLDAsMC0uMDg5LjMxNC42NzEuNjcxLDAsMCwwLC4wODkuMzU1LjgwNy44MDcsMCwwLDAsLjI2My4yNTcsMi4yNzUsMi4yNzUsMCwwLDAsLjQxOS4ycS4yNDQuMDkyLjU2Mi4yYTguMjA4LDguMjA4LDAsMCwxLC43NTIuMzQ5LDIuNTQyLDIuNTQyLDAsMCwxLC41NjguNEExLjU4LDEuNTgsMCwwLDEsMTQuNy0yLjVhMS43NjcsMS43NjcsMCwwLDEsLjEyNy43LDEuNiwxLjYsMCwwLDEtLjIyOS44NjMsMS45LDEuOSwwLDAsMS0uNjA5LjYwOSwyLjg1MiwyLjg1MiwwLDAsMS0uODc5LjM1OSw0LjU2Nyw0LjU2NywwLDAsMS0xLjA1MS4xMTdBNC40MjYsNC40MjYsMCwwLDEsMTAuMjE0LS4yWm05LjgyOS4xMzNhMi41NTIsMi41NTIsMCwwLDEtMS4xMzYuMjE2cS0xLjg5MiwwLTEuODkyLTEuODE1Vi01LjM0NUgxNS45M1YtNi41aDEuMDg1Vi04bDEuNDczLS40MTlWLTYuNWgxLjU1NXYxLjE1NUgxOC40ODh2My4yNWExLjI4MSwxLjI4MSwwLDAsMCwuMjA5LjgyNS44Ny44NywwLDAsMCwuNy4yNDgsMS4wMTIsMS4wMTIsMCwwLDAsLjY0Ny0uMjE2Wm0yLjQtNy43OTVhLjg4NS44ODUsMCwwLDEtLjYxOS0uMjM1Ljc3My43NzMsMCwwLDEtLjI1Ny0uNi43OTMuNzkzLDAsMCwxLC4yNTctLjYuODcyLjg3MiwwLDAsMSwuNjE5LS4yNDEuOS45LDAsMCwxLC42MzUuMjQxLjc4OC43ODgsMCwwLDEsLjI2LjYuNzc3Ljc3NywwLDAsMS0uMjYuNTg3QS44OTMuODkzLDAsMCwxLDIyLjQ0Ni03Ljg2NVpNMjMuMTc2LDBIMjEuN1YtNi41aDEuNDczWm01LjIuMTUyYTMuMjIyLDMuMjIyLDAsMCwxLTIuNC0uOTExLDMuMjksMy4yOSwwLDAsMS0uOS0yLjQxNSwzLjQyNCwzLjQyNCwwLDAsMSwuOTM2LTIuNTU4LDMuNDQzLDMuNDQzLDAsMCwxLDIuNTIzLS45MiwzLjExOCwzLjExOCwwLDAsMSwyLjM3NC45LDMuNDU3LDMuNDU3LDAsMCwxLC44NTEsMi40ODIsMy40MDcsMy40MDcsMCwwLDEtLjkxNywyLjQ5MUEzLjMsMy4zLDAsMCwxLDI4LjM3MS4xNTJabS4wNy01LjYzYTEuNjgxLDEuNjgxLDAsMCwwLTEuMzY1LjYsMi41MjUsMi41MjUsMCwwLDAtLjUsMS42NjNBMi4zNzgsMi4zNzgsMCwwLDAsMjcuMDgyLTEuNmExLjcwNiwxLjcwNiwwLDAsMCwxLjM1OC41ODcsMS42MTgsMS42MTgsMCwwLDAsMS4zMzYtLjU3OCwyLjU1NywyLjU1NywwLDAsMCwuNDY3LTEuNjQ0LDIuNiwyLjYsMCwwLDAtLjQ2Ny0xLjY1N0ExLjYxMSwxLjYxMSwwLDAsMCwyOC40NDEtNS40NzhaTTM5LjQzMSwwSDM3Ljk1OFYtMy42NjNxMC0xLjgyMi0xLjI4OS0xLjgyMmExLjQwNywxLjQwNywwLDAsMC0xLjExMS41LDEuODcyLDEuODcyLDAsMCwwLS40MzgsMS4yNzNWMEgzMy42NDJWLTYuNWgxLjQ3OXYxLjA3OWguMDI1YTIuMzE3LDIuMzE3LDAsMCwxLDIuMTA3LTEuMjMxLDEuOTYzLDEuOTYzLDAsMCwxLDEuNjE5LjY4OSwzLjA5MywzLjA5MywwLDAsMSwuNTU5LDEuOTlaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNjUuMjI3IDc0NC40NjkpIiBmaWxsPSIjZmZmIi8+CiAgICA8ZyBpZD0iUGF0aF84MzU3OSIgZGF0YS1uYW1lPSJQYXRoIDgzNTc5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTguNDIzIDc1OC4yMDMpIHJvdGF0ZSgtOTApIiBmaWxsPSIjMjZhNmE2Ij4KICAgICAgPHBhdGggZD0iTSA5LjI2NTQxNDIzNzk3NjA3NCA3LjI5Njg3ODgxNDY5NzI2NiBMIC0xLjAxMzA2NjI5MTgwOTA4MiA3LjI5Njg3ODgxNDY5NzI2NiBMIDYuNzgzODcyNjA0MzcwMTE3IDAuNzQxMTg0NTMyNjQyMzY0NSBMIDkuMjY1NDE0MjM3OTc2MDc0IDcuMjk2ODc4ODE0Njk3MjY2IFoiIHN0cm9rZT0ibm9uZSIvPgogICAgICA8cGF0aCBkPSJNIDYuNTY1ODk3OTQxNTg5MzU1IDEuNTc3NzAzNDc1OTUyMTQ4IEwgMC4zNTg1MzI5MDU1Nzg2MTMzIDYuNzk2ODc4ODE0Njk3MjY2IEwgOC41NDE1MjQ4ODcwODQ5NjEgNi43OTY4Nzg4MTQ2OTcyNjYgTCA2LjU2NTg5Nzk0MTU4OTM1NSAxLjU3NzcwMzQ3NTk1MjE0OCBNIDcuMDAxODQ0ODgyOTY1MDg4IC0wLjA5NTM0MDcyODc1OTc2NTYyIEwgOS45ODkzMDQ1NDI1NDE1MDQgNy43OTY4Nzg4MTQ2OTcyNjYgTCAtMi4zODQ2NzUwMjU5Mzk5NDEgNy43OTY4Nzg4MTQ2OTcyNjYgTCA3LjAwMTg0NDg4Mjk2NTA4OCAtMC4wOTUzNDA3Mjg3NTk3NjU2MiBaIiBzdHJva2U9Im5vbmUiIGZpbGw9IiMyNmE2YTYiLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPg==" alt="Key Questions" class="kq-icon" />:
+                <span class="summary-value">{{ key_questions|length }}</span>
+            </div>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-item">
+            <span class="summary-label">Target:</span>
+            <span class="summary-value">{{ report_metadata.target }}</span>
+        </div>
+    </div>
+
+    <!-- Hypothesis Callout -->
+    <div class="hypothesis-callout">
+        <div class="callout-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 2L12.5 7.5L18 8.5L14 12.5L15 18L10 15.5L5 18L6 12.5L2 8.5L7.5 7.5L10 2Z" fill="#26a6a6"/>
+            </svg>
+        </div>
+        <div class="callout-content">
+            <span class="callout-label">Hypothesis:</span>
+            <p>{{ report_metadata.hypothesis }}</p>
+        </div>
+    </div>
+
+    <section id="problem-framework">
+        <h1>1. Problem Framework</h1>
+        
+        <!-- Section Header Card -->
+        <div class="section-header-card">
+            <p>The following visual framework illustrates the journey from the current state through the obvious gap to the desired future state, incorporating the key questions that bridge this gap.</p>
+        </div>
+
+        <!-- Enhanced SGQ Container -->
+        <div class="sgq-visual-container">
+            <div class="sgq-container">
+                <!-- Current State Column -->
+                <div class="column editor situation">
+                    <div class="editor-title">
+                        <span class="heading">Current State</span>
+                    </div>
+                    <ul>
+                        <li class="label">
+                            <strong>Key Stakeholders and their Responsibilities:</strong>
+                            <div class="content-text">
+                                {{ problem_framework.current_state.stakeholders }}
+                            </div>
+                        </li>
+                        <li class="label">
+                            <strong>Current Scenario:</strong>
+                            <div class="content-text">
+                                {{ problem_framework.current_state.scenario }}
+                            </div>
+                        </li>
+                        <li class="label">
+                            <strong>Purpose:</strong>
+                            <div class="content-text">
+                                {{ problem_framework.current_state.purpose }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Middle Column: Gap and Key Questions -->
+                <div class="column div-key-middle">
+                    <!-- Obvious Gap Section -->
+                    <div class="editor gap pulsing">
+                        <div class="editor-title">
+                            <span class="heading">Obvious Gap</span>
+                        </div>
+                        <div class="gap-content">
+                            {{ problem_framework.obvious_gap }}
+                        </div>
+                    </div>
+
+                    <!-- Bridge Image -->
+                    <div class="key-images">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="150" viewBox="0 0 629.819 318.435" style="width: 548px; margin:0; height:255px; display: block;">
+                            <defs>
+                                <style>.a{stroke:rgba(0,0,0,0);fill:url(#a);}.b{fill:url(#c);}.c{fill:#6cc4c4;}.d{fill:#005e66;}.e{fill:#26a6a6;}</style>
+                                <linearGradient id="a" x1="1" y1="0.5" x2="0" y2="0.5" gradientUnits="objectBoundingBox">
+                                    <stop offset="0" stop-color="#e6562e"/>
+                                    <stop offset="0.219" stop-color="#e6562e"/>
+                                    <stop offset="0.397" stop-color="#e6562e"/>
+                                    <stop offset="1" stop-color="#e6562e" stop-opacity="0.051"/>
+                                </linearGradient>
+                                <linearGradient id="c" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+                                    <stop offset="0" stop-color="#2ee6d0" stop-opacity="0.322"/>
+                                    <stop offset="1" stop-color="#fff" stop-opacity="0.102"/>
+                                </linearGradient>
+                            </defs>
+                            <g transform="translate(-645.181 -405.285)">
+                                <path class="a" d="M4925.919-6085.8c-9.226.1-28.021.836-44.92,6.2v-21c16.9,5.365,35.694,6.1,44.92,6.2v-7.6l16.843,11.745-16.843,11.745Z" transform="translate(-3670.318 6695.143)"/>
+                                <path class="a" d="M4927-6085.8c-9.447.1-28.7.835-46,6.2v-21c17.307,5.366,36.555,6.1,46,6.2v-7.6l17.249,11.746L4927-6078.508Z" transform="translate(-4235.318 6698.143)"/>
+                                <g transform="translate(646 405.285)">
+                                    <path class="b" d="M-4443.487,6428.457c0,92.74,138.094,102.863,138.094,204.432h352.8c.521-97.059,138.936-113.317,138.107-204.6C-3864.88,6428.285-4443.487,6428.457-4443.487,6428.457Z" transform="translate(4443.487 -6428.285)"/>
+                                </g>
+                                <g transform="translate(1275 723.72) rotate(180)">
+                                    <path class="b" d="M0,0C0,66.784,200.284,35.418,200.284,94.085c0-11.262,25.37-34.354,57.946-34.354,30.934,0,56.062,34.354,56.062,34.354s21.3-34.354,59.83-34.354c25.933,0,53.866,19.087,53.866,34.354C428.51,24.19,629.826,65.738,629,0Z" transform="translate(0 0)"/>
+                                </g>
+                                <g transform="translate(237.107 192.496)">
+                                    <path class="c" d="M131.144,252.371c.353-.152.711-.3,1.058-.457v18.879h-1.058Zm-6.428,18.422h1.058V254.55q-.524.2-1.058.4Zm-6.429,0h1.058V256.818q-.526.172-1.058.342Zm32.143,0h1.058V241.069q-.521.371-1.058.742Zm6.428,0h1.058V236.05q-.517.444-1.058.894Zm-45,0h1.058V258.766c-.353.1-.7.2-1.058.3Zm25.715,0h1.058V248.85c-.346.178-.705.354-1.058.531Zm6.429,0h1.058V245.27c-.35.21-.7.421-1.058.63Zm-57.858,0H87.2v-6.841c-.354.047-.7.1-1.058.143Zm19.286,0h1.058V260.429c-.35.083-.7.165-1.058.247Zm-45,0h1.058v-4.864c-.351.009-.705.016-1.058.024Zm12.857,0h1.058v-5.508c-.349.026-.706.048-1.058.074Zm-19.286,0h1.058v-4.769c-.355,0-.7.008-1.058.008Zm12.858,0h1.058v-5.108c-.354.018-.7.04-1.058.057Zm32.143,0h1.058v-8.96c-.35.07-.705.137-1.058.205Zm-6.428,0H93.63V263q-.527.087-1.058.171Zm70.715,0h1.058V229.847c-.336.367-.691.745-1.058,1.127Zm-83.572,0h1.058v-6.086c-.352.037-.7.073-1.058.108Zm173.838,0h1.058V243.982c-.352.138-.7.277-1.058.409Zm-25.714,0H228.9V248.9c-.353,0-.705,0-1.058-.009Zm19.286,0h1.058V246.158c-.352.1-.705.2-1.058.293Zm-12.857,0h1.058v-22.2c-.353.033-.705.069-1.058.1Zm6.429,0h1.058V247.686c-.352.067-.705.129-1.058.189Zm32.143,0H273.9V233.036c-.352.269-.7.537-1.058.8Zm-6.428,0h1.058V237.5c-.352.22-.7.44-1.058.654Zm-6.429,0h1.058V241.122c-.352.177-.7.346-1.058.517Zm-77.143,0H183.9v-37.6c-.354-.27-.706-.55-1.058-.826Zm96.429,0h1.058V227.6q-.527.49-1.058.968Zm-90,0h1.058v-33.17c-.353-.22-.707-.439-1.058-.664Zm-12.857,0h1.058V227.778c-.355-.328-.706-.664-1.058-1Zm-6.429-50.771V222.6c-.081.13-.169.268-.264.415v47.781h1.322V221.214c-.044-.049-.088-.1-.132-.146Zm32.143,50.771h1.058V244.064c-.353-.137-.706-.275-1.058-.417Zm-6.429,0h1.058V241.221c-.353-.176-.706-.357-1.058-.54Zm12.857,0h1.058V246.219c-.353-.1-.706-.207-1.058-.313Zm12.857,0h1.058V248.615c-.353-.032-.705-.069-1.058-.107Zm-6.429,0h1.058v-23.07c-.353-.066-.706-.128-1.058-.2Zm154.42,0h1.058V243.982c-.352.138-.7.277-1.058.409Zm6.429,0h1.058V241.122c-.352.177-.7.346-1.058.517Zm-25.715,0h1.058v-22.2c-.353.033-.705.069-1.058.1Zm12.857,0h1.058V246.158c-.352.1-.705.2-1.058.293Zm-6.428,0H357.6V247.686c-.352.067-.705.129-1.058.189Zm25.715,0h1.058V237.5c-.352.22-.7.44-1.058.654Zm6.428,0h1.058V233.036c-.352.269-.7.537-1.058.8ZM402.6,221.134l-.529.463-.124.135c-.182-.317-.27-.488-.27-.488l0-.013v.8l-.132.144v48.62h1.191V223.012l-.132-.207Zm-116.774-1.112v2.007l-.132.144v48.621h1.19V221.214c-.044-.049-.088-.1-.132-.146Zm109.287,50.771h1.058V227.6q-.527.49-1.058.968Zm-83.572,0H312.6V241.221c-.353-.176-.706-.357-1.058-.54Zm6.429,0h1.058V244.064c-.353-.137-.706-.275-1.058-.417Zm-19.286,0h1.058v-37.6c-.354-.27-.706-.55-1.058-.826Zm6.428,0h1.058v-33.17c-.353-.22-.707-.439-1.058-.664Zm-12.857,0h1.058V227.778c-.355-.328-.706-.664-1.058-1Zm45,0h1.058V248.615c-.353-.032-.705-.069-1.058-.107Zm6.429,0h1.058V248.9c-.353,0-.705,0-1.058-.009Zm-12.857,0h1.058v-23.07c-.353-.066-.706-.128-1.058-.2Zm-6.428,0h1.058V246.219c-.353-.1-.706-.207-1.058-.313Zm160.848,0h1.058v-6.7c-.357-.045-.7-.1-1.058-.143Zm12.858,0h1.058v-5.434c-.352-.025-.709-.047-1.058-.074Zm-25.714,0h1.058v-8.755c-.353-.068-.708-.135-1.058-.205Zm6.428,0h1.058v-7.621L478.819,263Zm25.714,0h1.058v-5.051c-.357-.016-.7-.039-1.058-.057Zm-38.572,0h1.058V260.676c-.354-.082-.708-.164-1.058-.247Zm51.429-4.769v4.769h1.058v-4.761C518.092,266.032,517.746,266.026,517.391,266.024Zm-6.429,4.769h1.058v-4.84c-.353-.008-.707-.015-1.058-.024Zm-19.286,0h1.058v-5.978c-.354-.035-.706-.071-1.058-.108Zm-77.143,0h1.058V236.944q-.541-.45-1.058-.894Zm12.857,0h1.058V245.9c-.358-.209-.708-.42-1.058-.63Zm-6.429,0h1.058V241.812q-.538-.372-1.058-.742Zm-12.857,0h1.058V230.975c-.367-.383-.722-.76-1.058-1.127Zm32.143,0h1.058V252.371c-.353-.152-.711-.3-1.058-.457Zm-6.429,0h1.058V249.381c-.353-.177-.711-.353-1.058-.531Zm19.286,0h1.058V257.16q-.533-.17-1.058-.342Zm-6.429,0h1.058V254.947q-.532-.2-1.058-.4Zm12.858,0h1.058v-11.73c-.358-.1-.7-.2-1.058-.3Z" transform="translate(436.883 141.037)"/>
+                                    <path class="c" d="M285.831,221.863l.787.707c-15.932,17.731-36.461,27.484-57.83,27.484h-.251c-21.274-.076-41.685-9.836-57.551-27.491-1.283,2.229-7.63,12.257-23.005,22.138C132.025,254.957,102.768,267.18,54,267.18v-1.058c48.455,0,77.5-12.105,93.333-22.261,17.138-10.992,22.91-22.126,22.966-22.237l.432.218.571-.506c15.731,17.761,36.059,27.584,57.24,27.66h.247C249.855,249,270.1,239.369,285.831,221.863Zm139.286,22c-17.138-10.992-22.91-22.126-22.966-22.237l-.944.477c0,.007.036.069.093.174C385.625,239.517,365.535,249,344.636,249h-.247c-21.181-.076-41.508-9.9-57.24-27.66l-.792.7c15.934,17.99,36.542,27.939,58.028,28.016h.251c21.1,0,41.379-9.516,57.224-26.826,1.94,3.141,8.444,12.371,22.607,21.474,15.957,10.254,45.214,22.478,93.982,22.478v-1.058C469.995,266.122,440.95,254.017,425.117,243.862Z" transform="translate(436.883 140.418)"/>
+                                    <path class="d" d="M275.933,270.8v1.587c-1.985,0-6.226,2.745-7.538,5.728V283.1a16.823,16.823,0,0,0,5.885,3.081,1.061,1.061,0,0,1,1.058,1.058v4.232H257.352v-4.232a1.061,1.061,0,0,1,1.058-1.058,16.819,16.819,0,0,0,5.753-2.972v-5.054c-1.312-2.983-5.553-5.728-7.538-5.728v-1.587c1.93,0,5.364,1.841,7.538,4.409V219h4.232v56.206C270.569,272.638,274,270.8,275.933,270.8Zm108.31,4.409V219h-4.232v56.25c-2.174-2.568-5.608-4.409-7.538-4.409v1.587c1.985,0,6.226,2.745,7.538,5.728v5.054a16.82,16.82,0,0,1-5.753,2.972,1.061,1.061,0,0,0-1.058,1.058v4.232h17.985v-4.232a1.061,1.061,0,0,0-1.058-1.058,16.818,16.818,0,0,1-5.885-3.081v-4.989c1.312-2.983,5.553-5.728,7.538-5.728V270.8C389.85,270.8,386.416,272.638,384.243,275.206Zm123.386-2.822V270.8c-1.93,0-5.364,1.841-7.538,4.409V219h-4.232v56.25c-2.174-2.568-5.608-4.409-7.538-4.409v1.587c1.985,0,6.226,2.745,7.538,5.728v5.054a16.819,16.819,0,0,1-5.753,2.972,1.061,1.061,0,0,0-1.058,1.058v4.232h17.986v-4.232a1.061,1.061,0,0,0-1.058-1.058,16.818,16.818,0,0,1-5.885-3.081v-4.989C501.4,275.128,505.644,272.384,507.629,272.384Z" transform="translate(341.444 141.519)"/>
+                                    <path class="e" d="M517.565,314v3.174H51V314H517.565Z" transform="translate(438.296 96.772)"/>
+                                </g>
+                            </g>
+                        </svg>
+                    </div> 
+
+                    <!-- Key Questions Section -->
+                    <div class="editor keyquestion">
+                        <div class="editor-title">
+                            <span class="heading">Key Questions - Which Need Answer</span>
+                        </div>
+                        <div class="questions-list">
+                            {% for kq in key_questions %}
+                            <div class="question-item">
+                                <div class="keyquestion-number">{{ kq.question_number }}.</div>
+                                <div class="question-text">
+                                    {{ kq.question_text }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Future State Column -->
+                <div class="column editor future">
+                    <div class="editor-title">
+                        <span class="heading">Desired Future State</span>
+                    </div>
+                    <ul>
+                        <li class="label">
+                            <strong>Analytical Output:</strong>
+                            <div class="content-text">
+                                {{ problem_framework.future_state.analytical_output }}
+                            </div>
+                        </li>
+                        <li class="label">
+                            <strong>Utilization of Output:</strong>
+                            <div class="content-text">
+                                {{ problem_framework.future_state.utilization }}
+                            </div>
+                        </li>
+                        <li class="label">
+                            <strong>Required Input:</strong>
+                            <div class="content-text">
+                                {{ problem_framework.future_state.required_input }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem-Solution-Question Flowchart -->
+
+    <section id="key-questions">
+        <h1>2. Analysis: Key Questions Addressed</h1>
+        <p>Each key question below has been thoroughly analyzed to validate the hypothesis and address the obvious gap identified in the problem framework.</p>
+
+        <!-- Key Questions with Integrated Evaluation Details -->
+        <div class="key-questions-container">
+            {% for kq in key_questions %}
+            <!-- Key Question {{ kq.question_number }} -->
+            <div class="key-question-item" id="kq-{{ kq.question_number }}">
+                <div class="goal-card">
+                    <div class="validation-status {{ kq.validation_status.class }}">
+                        {% if kq.validation_status.class == 'validated' %}
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="9" fill="#4CAF50"/>
+                            <path d="M6 10l2.5 2.5L14 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        {% elif kq.validation_status.class == 'partial' %}
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="9" fill="#FF9800"/>
+                            <path d="M10 6v6M10 14h.01" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        {% else %}
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="9" fill="#f44336"/>
+                            <path d="M7 7l6 6M13 7l-6 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        {% endif %}
+                        <span>{{ kq.validation_status.label }}</span>
+                    </div>
+                    <div class="key-question-tag">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NC4wODYiIGhlaWdodD0iMzAuMTE5IiB2aWV3Qm94PSIwIDAgOTQuMDg2IDMwLjExOSI+CiAgPGcgaWQ9Ikdyb3VwXzE2NDY0MSIgZGF0YS1uYW1lPSJHcm91cCAxNjQ2NDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMTguMzE1IC03MzAuNDY5KSI+CiAgICA8cGF0aCBpZD0iUGF0aF84MzU3OCIgZGF0YS1uYW1lPSJQYXRoIDgzNTc4IiBkPSJNMS4xMDcsMEg5Mi45NzlhMS4yMTMsMS4yMTMsMCwwLDEsMS4xMDcsMS4zVjE5LjQzOWExLjIxMywxLjIxMSwwLDAsMS0xLjEwNywxLjNIMFYxLjNBMS4yMTMsMS4yMTMsMCwwLDEsMS4xMDcsMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIxOC4zMTUgNzMwLjQ2OSkiIGZpbGw9IiMyNmE2YTYiLz4KICAgIDxwYXRoIGlkPSJQYXRoXzg2MTY1IiBkYXRhLW5hbWU9IlBhdGggODYxNjUiIGQ9Ik0tMzIuMjU4LDBoLTEuOTY4bC0zLjE2Ny00LjE2NGEyLjMsMi4zLDAsMCwxLS4yMTYtLjMxN2gtLjAyNVYwaC0xLjUxMVYtOS4xaDEuNTExdjQuMjc4aC4wMjVhMi4wOTQsMi4wOTQsMCwwLDEsLjIxNi0uMzExTC0zNC4zNC05LjFoMS44MDlMLTM2LjEtNC43MzVabTYuNjMtMi44NWgtNC40MzFBMS44NzMsMS44NzMsMCwwLDAtMjkuNS0xLjQ2YTIuMDY2LDIuMDY2LDAsMCwwLDEuNDU3LjQ4OSwzLjIxMiwzLjIxMiwwLDAsMCwxLjkxMS0uNjIyVi0uNDA2YTQuMzY1LDQuMzY1LDAsMCwxLTIuMzQ5LjU1OSwyLjkwNywyLjkwNywwLDAsMS0yLjI1LS44ODUsMy41NDIsMy41NDIsMCwwLDEtLjgxNi0yLjQ5MSwzLjQ2NCwzLjQ2NCwwLDAsMSwuOS0yLjQ3MiwyLjkzOCwyLjkzOCwwLDAsMSwyLjIzMS0uOTU1LDIuNTYyLDIuNTYyLDAsMCwxLDIuMDYzLjg1NywzLjU1OCwzLjU1OCwwLDAsMSwuNzMsMi4zOFpNLTI3LjA1LTMuODkxYTEuOSwxLjksMCwwLDAtLjM3NS0xLjIzNSwxLjI1MSwxLjI1MSwwLDAsMC0xLjAxNi0uNDQxLDEuNDI5LDEuNDI5LDAsMCwwLTEuMDc2LjQ2MywyLjExNywyLjExNywwLDAsMC0uNTQzLDEuMjEyWk0tMTguMjA1LTYuNWwtMi45MzMsNy41NDFBMi44NDEsMi44NDEsMCwwLDEtMjMuNywzLjA2YTMuMDc1LDMuMDc1LDAsMCwxLS43NzQtLjA4M1YxLjc1MmEyLjA1OSwyLjA1OSwwLDAsMCwuNjM1LjExNCwxLjMxLDEuMzEsMCwwLDAsMS4yMzEtLjgxMmwuNDM4LTEuMDY2TC0yNC43NTYtNi41aDEuNjMxbDEuNTQ5LDQuNzIzcS4wMjUuMDg5LjExNC40N2guMDMycS4wMzItLjE0Ni4xMTQtLjQ1N0wtMTkuNjkxLTYuNVpNLTYuOTY0LDIuOTlILTguNDM3Vi0xLjExN2gtLjAyNUEyLjI3NywyLjI3NywwLDAsMS0xMC42NC4xNTIsMi4zODIsMi4zODIsMCwwLDEtMTIuNTY2LS43MiwzLjYsMy42LDAsMCwxLTEzLjI5My0zLjFhMy45NDUsMy45NDUsMCwwLDEsLjgtMi41ODcsMi42MzEsMi42MzEsMCwwLDEsMi4xNDItLjk2OEEyLDIsMCwwLDEtOC40NjItNS42aC4wMjV2LS45aDEuNDczWk0tOC40MTgtMi45NThWLTMuOGExLjY4OSwxLjY4OSwwLDAsMC0uNDU0LTEuMTkzLDEuNSwxLjUsMCwwLDAtMS4xNTItLjQ4OSwxLjU0NCwxLjU0NCwwLDAsMC0xLjI5Mi42MTMsMi43NzYsMi43NzYsMCwwLDAtLjQ3MywxLjczLDIuNDA2LDIuNDA2LDAsMCwwLC40NTcsMS41NTUsMS40NDksMS40NDksMCwwLDAsMS4xODEuNTY1LDEuNTczLDEuNTczLDAsMCwwLDEuMjYzLS41NTJBMi4wNzEsMi4wNzEsMCwwLDAtOC40MTgtMi45NThaTTEuMDE3LDBILS40NTVWLTEuMDI4SC0uNDgxQTIuMTE5LDIuMTE5LDAsMCwxLTIuNDc0LjE1MnEtMi4zLDAtMi4zLTIuNzY4Vi02LjVoMS40NzN2My43MzJxMCwxLjc1MiwxLjM1MiwxLjc1MkExLjM2NiwxLjM2NiwwLDAsMC0uODc3LTEuNSwxLjg0OSwxLjg0OSwwLDAsMC0uNDU1LTIuNzYxVi02LjVIMS4wMTdabTcuODEtMi44NUg0LjRhMS44NzMsMS44NzMsMCwwLDAsLjU1NSwxLjM5LDIuMDY2LDIuMDY2LDAsMCwwLDEuNDU3LjQ4OUEzLjIxMiwzLjIxMiwwLDAsMCw4LjMyLTEuNTkzVi0uNDA2QTQuMzY1LDQuMzY1LDAsMCwxLDUuOTcxLjE1MmEyLjkwNywyLjkwNywwLDAsMS0yLjI1LS44ODUsMy41NDIsMy41NDIsMCwwLDEtLjgxNi0yLjQ5MUEzLjQ2NCwzLjQ2NCwwLDAsMSwzLjgtNS43YTIuOTM4LDIuOTM4LDAsMCwxLDIuMjMxLS45NTVBMi41NjIsMi41NjIsMCwwLDEsOC4xLTUuOGEzLjU1OCwzLjU1OCwwLDAsMSwuNzMsMi4zOFpNNy40MDYtMy44OTFhMS45LDEuOSwwLDAsMC0uMzc1LTEuMjM1LDEuMjUxLDEuMjUxLDAsMCwwLTEuMDE2LS40NDFBMS40MjksMS40MjksMCwwLDAsNC45NC01LjEsMi4xMTcsMi4xMTcsMCwwLDAsNC40LTMuODkxWk0xMC4yMTQtLjJWLTEuNTY4YTIuOTM4LDIuOTM4LDAsMCwwLDEuODIyLjYyOHExLjMzMywwLDEuMzMzLS43ODdhLjYyLjYyLDAsMCwwLS4xMTQtLjM3OCwxLjA5MSwxLjA5MSwwLDAsMC0uMzA4LS4yNzZBMi40MiwyLjQyLDAsMCwwLDEyLjQ5LTIuNnEtLjI2My0uMS0uNTg3LS4yMTZhNi4yMTYsNi4yMTYsMCwwLDEtLjcyLS4zMzYsMi4xNzcsMi4xNzcsMCwwLDEtLjUzMy0uNCwxLjUyMiwxLjUyMiwwLDAsMS0uMzIxLS41MTEsMS44ODIsMS44ODIsMCwwLDEtLjEwOC0uNjY3LDEuNTQsMS41NCwwLDAsMSwuMjIyLS44MjgsMS45MzEsMS45MzEsMCwwLDEsLjYtLjYsMi44NjEsMi44NjEsMCwwLDEsLjg1MS0uMzY4LDMuODk0LDMuODk0LDAsMCwxLC45ODQtLjEyNCw0LjQ3Myw0LjQ3MywwLDAsMSwxLjYxMi4yNzN2MS4yODlhMi43MTgsMi43MTgsMCwwLDAtMS41NzQtLjQ3LDIuMDU2LDIuMDU2LDAsMCwwLS41LjA1NywxLjMsMS4zLDAsMCwwLS4zODQuMTU5Ljc4MS43ODEsMCwwLDAtLjI0OC4yNDQuNTgzLjU4MywwLDAsMC0uMDg5LjMxNC42NzEuNjcxLDAsMCwwLC4wODkuMzU1LjgwNy44MDcsMCwwLDAsLjI2My4yNTcsMi4yNzUsMi4yNzUsMCwwLDAsLjQxOS4ycS4yNDQuMDkyLjU2Mi4yYTguMjA4LDguMjA4LDAsMCwxLC43NTIuMzQ5LDIuNTQyLDIuNTQyLDAsMCwxLC41NjguNEExLjU4LDEuNTgsMCwwLDEsMTQuNy0yLjVhMS43NjcsMS43NjcsMCwwLDEsLjEyNy43LDEuNiwxLjYsMCwwLDEtLjIyOS44NjMsMS45LDEuOSwwLDAsMS0uNjA5LjYwOSwyLjg1MiwyLjg1MiwwLDAsMS0uODc5LjM1OSw0LjU2Nyw0LjU2NywwLDAsMS0xLjA1MS4xMTdBNC40MjYsNC40MjYsMCwwLDEsMTAuMjE0LS4yWm05LjgyOS4xMzNhMi41NTIsMi41NTIsMCwwLDEtMS4xMzYuMjE2cS0xLjg5MiwwLTEuODkyLTEuODE1Vi01LjM0NUgxNS45M1YtNi41aDEuMDg1Vi04bDEuNDczLS40MTlWLTYuNWgxLjU1NXYxLjE1NUgxOC40ODh2My4yNWExLjI4MSwxLjI4MSwwLDAsMCwuMjA5LjgyNS44Ny44NywwLDAsMCwuNy4yNDgsMS4wMTIsMS4wMTIsMCwwLDAsLjY0Ny0uMjE2Wm0yLjQtNy43OTVhLjg4NS44ODUsMCwwLDEtLjYxOS0uMjM1Ljc3My43NzMsMCwwLDEtLjI1Ny0uNi43OTMuNzkzLDAsMCwxLC4yNTctLjYuODcyLjg3MiwwLDAsMSwuNjE5LS4yNDEuOS45LDAsMCwxLC42MzUuMjQxLjc4OC43ODgsMCwwLDEsLjI2LjYuNzc3Ljc3NywwLDAsMS0uMjYuNTg3QS44OTMuODkzLDAsMCwxLDIyLjQ0Ni03Ljg2NVpNMjMuMTc2LDBIMjEuN1YtNi41aDEuNDczWm01LjIuMTUyYTMuMjIyLDMuMjIyLDAsMCwxLTIuNC0uOTExLDMuMjksMy4yOSwwLDAsMS0uOS0yLjQxNSwzLjQyNCwzLjQyNCwwLDAsMSwuOTM2LTIuNTU4LDMuNDQzLDMuNDQzLDAsMCwxLDIuNTIzLS45MiwzLjExOCwzLjExOCwwLDAsMSwyLjM3NC45LDMuNDU3LDMuNDU3LDAsMCwxLC44NTEsMi40ODIsMy40MDcsMy40MDcsMCwwLDEtLjkxNywyLjQ5MUEzLjMsMy4zLDAsMCwxLDI4LjM3MS4xNTJabS4wNy01LjYzYTEuNjgxLDEuNjgxLDAsMCwwLTEuMzY1LjYsMi41MjUsMi41MjUsMCwwLDAtLjUsMS42NjNBMi4zNzgsMi4zNzgsMCwwLDAsMjcuMDgyLTEuNmExLjcwNiwxLjcwNiwwLDAsMCwxLjM1OC41ODcsMS42MTgsMS42MTgsMCwwLDAsMS4zMzYtLjU3OCwyLjU1NywyLjU1NywwLDAsMCwuNDY3LTEuNjQ0LDIuNiwyLjYsMCwwLDAtLjQ2Ny0xLjY1N0ExLjYxMSwxLjYxMSwwLDAsMCwyOC40NDEtNS40NzhaTTM5LjQzMSwwSDM3Ljk1OFYtMy42NjNxMC0xLjgyMi0xLjI4OS0xLjgyMmExLjQwNywxLjQwNywwLDAsMC0xLjExMS41LDEuODcyLDEuODcyLDAsMCwwLS40MzgsMS4yNzNWMEgzMy42NDJWLTYuNWgxLjQ3OXYxLjA3OWguMDI1YTIuMzE3LDIuMzE3LDAsMCwxLDIuMTA3LTEuMjMxLDEuOTYzLDEuOTYzLDAsMCwxLDEuNjE5LjY4OSwzLjA5MywzLjA5MywwLDAsMSwuNTU5LDEuOTlaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNjUuMjI3IDc0NC40NjkpIiBmaWxsPSIjZmZmIi8+CiAgICA8ZyBpZD0iUGF0aF84MzU3OSIgZGF0YS1uYW1lPSJQYXRoIDgzNTc5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTguNDIzIDc1OC4yMDMpIHJvdGF0ZSgtOTApIiBmaWxsPSIjMjZhNmE2Ij4KICAgICAgPHBhdGggZD0iTSA5LjI2NTQxNDIzNzk3NjA3NCA3LjI5Njg3ODgxNDY5NzI2NiBMIC0xLjAxMzA2NjI5MTgwOTA4MiA3LjI5Njg3ODgxNDY5NzI2NiBMIDYuNzgzODcyNjA0MzcwMTE3IDAuNzQxMTg0NTMyNjQyMzY0NSBMIDkuMjY1NDE0MjM3OTc2MDc0IDcuMjk2ODc4ODE0Njk3MjY2IFoiIHN0cm9rZT0ibm9uZSIvPgogICAgICA8cGF0aCBkPSJNIDYuNTY1ODk3OTQxNTg5MzU1IDEuNTc3NzAzNDc1OTUyMTQ4IEwgMC4zNTg1MzI5MDU1Nzg2MTMzIDYuNzk2ODc4ODE0Njk3MjY2IEwgOC41NDE1MjQ4ODcwODQ5NjEgNi43OTY4Nzg4MTQ2OTcyNjYgTCA2LjU2NTg5Nzk0MTU4OTM1NSAxLjU3NzcwMzQ3NTk1MjE0OCBNIDcuMDAxODQ0ODgyOTY1MDg4IC0wLjA5NTM0MDcyODc1OTc2NTYyIEwgOS45ODkzMDQ1NDI1NDE1MDQgNy43OTY4Nzg4MTQ2OTcyNjYgTCAtMi4zODQ2NzUwMjU5Mzk5NDEgNy43OTY4Nzg4MTQ2OTcyNjYgTCA3LjAwMTg0NDg4Mjk2NTA4OCAtMC4wOTUzNDA3Mjg3NTk3NjU2MiBaIiBzdHJva2U9Im5vbmUiIGZpbGw9IiMyNmE2YTYiLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPg==" alt="Question Icon" />
+                    </div>
+                    <div class="question-box">
+                        <div class="question-header">
+                            <div class="question-content">
+                                <div class="question-left">
+                                    <span class="key-icon">
+                                        <div class="placeholder-icon key-question-icon">{{ kq.question_number }}</div>
+                                    </span>
+                                    <p class="paragraph">{{ kq.question_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="test-flex">
+                            <div class="test-section test-section-active">
+                                <div class="test-header">
+                                    <span class="test-icon"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUiIGhlaWdodD0iMTkiIHZpZXdCb3g9IjAgMCAxNSAxOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjk5NTIgMTUuMzY3MkMxNC4wNjUzIDE1LjQ4NSAxNC4xMTk4IDE1LjYxMTUgMTQuMTU3NCAxNS43NDM2QzE0LjE5NTMgMTUuODc3NCAxNC4yMTQxIDE2LjAxNTkgMTQuMjEzMiAxNi4xNTVDMTQuMjE0NyAxNi4zNjIxIDE0LjE3NDMgMTYuNTY3MiAxNC4wOTQ2IDE2Ljc1NzhDMTMuOTQxMiAxNy4xMjk0IDEzLjY0OTkgMTcuNDI0OSAxMy4yODM2IDE3LjU4MDZDMTMuMDk1NyAxNy42NjE1IDEyLjg5MzUgMTcuNzAyNCAxMi42ODk1IDE3LjcwMDlIMi4wNzUxOEMxLjg3MTEzIDE3LjcwMjQgMS42Njg5MyAxNy42NjE1IDEuNDgxMSAxNy41ODA2QzEuMTE0NzcgMTcuNDI0OSAwLjgyMzQ1OSAxNy4xMjk0IDAuNjcwMDc1IDE2Ljc1NzhDMC41OTAzMzYgMTYuNTY3MiAwLjU0OTk2NiAxNi4zNjIxIDAuNTUxNDYyIDE2LjE1NUMwLjU1MDU4NyAxNi4wMTYyIDAuNTY3OTc0IDE1Ljg3NzggMC42MDMxNjUgMTUuNzQzNkMwLjYzOTM2NSAxNS42MTA3IDAuNjkzOTc4IDE1LjQ4MzYgMC43NjUzNyAxNS4zNjYyTDUuMjcxNjQgNy4zOTUyNUM1LjMyNjAzIDcuMzE0OTMgNS4zNTM3NCA3LjIxOTA4IDUuMzUwNzEgNy4xMjE2N1YyLjI3MDIxSDQuMzM2OTNWMS4yNDE3SDEwLjQxOTZWMi4yNzAyMUg5LjQwNTg0VjcuMTIzNzNDOS40MDUyNSA3LjIyMzA2IDkuNDMyNjkgNy4zMjA0OSA5LjQ4NDkyIDcuNDA0NTFMMTMuOTk1MiAxNS4zNjcyWk02LjM2NzU0IDcuMTIzNzNDNi4zNjg2MSA3LjQwMzUyIDYuMjk0NjcgNy42NzgzMyA2LjE1MzYzIDcuOTE4NzZMMy41MzMgMTIuNTU1M0gxMS4yMzE3TDguNjA5MDEgNy45MTg3NkM4LjQ2Nzk3IDcuNjc4MzMgOC4zOTQwMyA3LjQwMzUyIDguMzk1MSA3LjEyMzczVjIuMjcwMjFINi4zNjc1NFY3LjEyMzczWiIgZmlsbD0iIzFBMjMyOSIvPgo8cGF0aCBkPSJNMTMuOTk1MiAxNS4zNjcyQzE0LjA2NTMgMTUuNDg1IDE0LjExOTggMTUuNjExNSAxNC4xNTc0IDE1Ljc0MzZDMTQuMTk1MyAxNS44Nzc0IDE0LjIxNDEgMTYuMDE1OSAxNC4yMTMyIDE2LjE1NUMxNC4yMTQ3IDE2LjM2MjEgMTQuMTc0MyAxNi41NjcyIDE0LjA5NDYgMTYuNzU3OEMxMy45NDEyIDE3LjEyOTQgMTMuNjQ5OSAxNy40MjQ5IDEzLjI4MzYgMTcuNTgwNkMxMy4wOTU3IDE3LjY2MTUgMTIuODkzNSAxNy43MDI0IDEyLjY4OTUgMTcuNzAwOUgyLjA3NTE4QzEuODcxMTMgMTcuNzAyNCAxLjY2ODkzIDE3LjY2MTUgMS40ODExIDE3LjU4MDZDMS4xMTQ3NyAxNy40MjQ5IDAuODIzNDU5IDE3LjEyOTQgMC42NzAwNzUgMTYuNzU3OEMwLjU5MDMzNiAxNi41NjcyIDAuNTQ5OTY2IDE2LjM2MjEgMC41NTE0NjIgMTYuMTU1QzAuNTUwNTg3IDE2LjAxNjIgMC41Njc5NzQgMTUuODc3OCAwLjYwMzE2NSAxNS43NDM2QzAuNjM5MzY1IDE1LjYxMDcgMC42OTM5NzggMTUuNDgzNiAwLjc2NTM3IDE1LjM2NjJMNS4yNzE2NCA3LjM5NTI1QzUuMzI2MDMgNy4zMTQ5MyA1LjM1Mzc0IDcuMjE5MDggNS4zNTA3MSA3LjEyMTY3VjIuMjcwMjFINC4zMzY5M1YxLjI0MTdIMTAuNDE5NlYyLjI3MDIxSDkuNDA1ODRWNy4xMjM3M0M5LjQwNTI1IDcuMjIzMDYgOS40MzI2OSA3LjMyMDQ5IDkuNDg0OTIgNy40MDQ1MUwxMy45OTUyIDE1LjM2NzJaTTYuMzY3NTQgNy4xMjM3M0M2LjM2ODYxIDcuNDAzNTIgNi4yOTQ2NyA3LjY3ODMzIDYuMTUzNjMgNy45MTg3NkwzLjUzMyAxMi41NTUzSDExLjIzMTdMOC42MDkwMSA3LjkxODc2QzguNDY3OTcgNy42NzgzMyA4LjM5NDAzIDcuNDAzNTIgOC4zOTUxIDcuMTIzNzNWMi4yNzAyMUg2LjM2NzU0VjcuMTIzNzNaIiBzdHJva2U9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMy45OTUyIDE1LjM2NzJDMTQuMDY1MyAxNS40ODUgMTQuMTE5OCAxNS42MTE1IDE0LjE1NzQgMTUuNzQzNkMxNC4xOTUzIDE1Ljg3NzQgMTQuMjE0MSAxNi4wMTU5IDE0LjIxMzIgMTYuMTU1QzE0LjIxNDcgMTYuMzYyMSAxNC4xNzQzIDE2LjU2NzIgMTQuMDk0NiAxNi43NTc4QzEzLjk0MTIgMTcuMTI5NCAxMy42NDk5IDE3LjQyNDkgMTMuMjgzNiAxNy41ODA2QzEzLjA5NTcgMTcuNjYxNSAxMi44OTM1IDE3LjcwMjQgMTIuNjg5NSAxNy43MDA5SDIuMDc1MThDMS44NzExMyAxNy43MDI0IDEuNjY4OTMgMTcuNjYxNSAxLjQ4MTEgMTcuNTgwNkMxLjExNDc3IDE3LjQyNDkgMC44MjM0NTkgMTcuMTI5NCAwLjY3MDA3NSAxNi43NTc4QzAuNTkwMzM2IDE2LjU2NzIgMC41NDk5NjYgMTYuMzYyMSAwLjU1MTQ2MiAxNi4xNTVDMC41NTA1ODcgMTYuMDE2MiAwLjU2Nzk3NCAxNS44Nzc4IDAuNjAzMTY1IDE1Ljc0MzZDMC42MzkzNjUgMTUuNjEwNyAwLjY5Mzk3OCAxNS40ODM2IDAuNzY1MzcgMTUuMzY2Mkw1LjI3MTY0IDcuMzk1MjVDNS4zMjYwMyA3LjMxNDkzIDUuMzUzNzQgNy4yMTkwOCA1LjM1MDcxIDcuMTIxNjdWMi4yNzAyMUg0LjMzNjkzVjEuMjQxN0gxMC40MTk2VjIuMjcwMjFIOS40MDU4NFY3LjEyMzczQzkuNDA1MjUgNy4yMjMwNiA5LjQzMjY5IDcuMzIwNDkgOS40ODQ5MiA3LjQwNDUxTDEzLjk5NTIgMTUuMzY3MlpNNi4zNjc1NCA3LjEyMzczQzYuMzY4NjEgNy40MDM1MiA2LjI5NDY3IDcuNjc4MzMgNi4xNTM2MyA3LjkxODc2TDMuNTMzIDEyLjU1NTNIMTEuMjMxN0w4LjYwOTAxIDcuOTE4NzZDOC40Njc5NyA3LjY3ODMzIDguMzk0MDMgNy40MDM1MiA4LjM5NTEgNy4xMjM3M1YyLjI3MDIxSDYuMzY3NTRWNy4xMjM3M1oiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1vcGFjaXR5PSIwLjIiLz4KPC9zdmc+" alt="Flask Icon" /></span>
+                                    <span class="test-text">Analysis : {{ kq.analysis_description }}</span>
+                                </div>
+                                <div class="test-tags">
+                                    {% for tag in kq.analysis_tags %}
+                                    <span class="test-tag" title="{{ tag.title }}">{{ tag.label }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- **ANALYSIS DETAILS FOR THIS KEY QUESTION** -->
+                <div class="evaluation-details-simple">
+                    <h5 class="evaluation-title">Analysis Details</h5>
+                    
+                    {% set eval_categories = [
+                        ('relevance_and_coverage', 'Relevance and Coverage'),
+                        ('data_quality_and_completeness', 'Data Quality and Completeness'),
+                        ('statistical_and_analytical_rigor', 'Statistical and Analytical Rigor'),
+                        ('interpretation_and_clinical_insight', 'Interpretation and Clinical Insight'),
+                        ('presentation_and_visualization', 'Presentation and Visualization'),
+                        ('limitations_and_future_scope', 'Limitations and Future Scope')
+                    ] %}
+                    
+                    {% for category_key, category_label in eval_categories %}
+                    <div class="evaluation-category-simple">
+                        <div class="category-header-simple">
+                            <span class="category-name-simple">{{ category_label }}</span>
+                        </div>
+                        <div class="category-comment-simple">
+                            {{ kq.evaluation_details[category_key].comment }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    <!-- Overall Evaluation Summary -->
+                    <div class="overall-evaluation-simple">
+                        <h6 class="overall-title">Overall Assessment</h6>
+                        <p class="overall-summary">{{ kq.overall_evaluation.summary }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+        <!-- Analysis Summary -->
+        <div class="analysis-summary-section">
+            <p>{{ analysis_summary.introduction }}</p>
+            
+            {% for summary in analysis_summary.key_question_summaries %}
+            <p><strong>{{ summary.question_number }} - {{ summary.title }}:</strong> {{ summary.summary }}</p>
+            {% endfor %}
+            
+            <p><strong>Connection to Obvious Gap:</strong> {{ analysis_summary.gap_connection }}</p>
+        </div>
+    </section>
+
+     <section id="results">
+        <h1>3. Results and Key Findings</h1>
+
+        <div class="results-grid">
+            {% for card in results_section.cards %}
+            <div class="result-card {{ card.icon_type }}">
+                <div class="result-icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <circle cx="24" cy="24" r="20" fill="#4CAF50" opacity="0.1"/>
+                        <path d="M16 24l6 6L32 18" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3>{{ card.title }}</h3>
+                <p>{{ card.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </section>
+
+    <section id="discussion-conclusion">
+    <h1>4. Recommendations and Next Steps</h1>
+
+    <section id="key-insights">
+    <h2>4.1. Key Insights and Implications</h2>
+    <div class="insights-grid">
+        {% for insight in recommendations.insights %}
+        <div class="insight-card primary">
+            <div class="insight-header">
+                <span class="insight-number">{{ insight.number }}</span>
+                <h3>{{ insight.title }}</h3>
+            </div>
+            <p>{{ insight.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    </section>
+
+    <section id="recommendations">
+    <h2>4.2. Action Plan and Future Research</h2>
+    <p>Based on the analysis, the following recommendations are proposed:</p>
+    
+    <div class="recommendations-grid">
+        {% for action in recommendations.action_items %}
+        <div class="recommendation-card {{ action.priority }}-priority">
+            <div class="priority-badge">{{ action.priority|title }} Priority</div>
+            <h4>{{ action.title }}</h4>
+            <p>{{ action.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="future-research-card">
+        <h4>{{ recommendations.future_research.title }}</h4>
+        <p>{{ recommendations.future_research.description }}</p>
+    </div>
+    </section>
+</section>
+
+    </article>
+</div>
+
+<script>
+// ========================================
+// OBVIOUS GAP REPORT - INTERACTIVE FUNCTIONALITY
+// ========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ========================================
+    // 1. KEY QUESTION NAVIGATION
+    // ========================================
+    const keyQuestionItems = document.querySelectorAll('.key-question-item');
+    
+    // Add click handlers to key question items for smooth scrolling
+    keyQuestionItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+            // Scroll to the key question itself
+            item.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Highlight the key question briefly
+            item.style.backgroundColor = '#e6f7f7';
+            item.style.border = '2px solid #26a6a6';
+            
+            // Remove highlight after 2 seconds
+            setTimeout(() => {
+                item.style.backgroundColor = '';
+                item.style.border = '';
+            }, 2000);
+        });
+    });
+
+    // ========================================
+    // 2. KEYBOARD NAVIGATION
+    // ========================================
+    document.addEventListener('keydown', function(e) {
+        // Handle keyboard navigation for key questions
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            const keyQuestionsContainer = document.querySelector('.key-questions-container');
+            if (keyQuestionsContainer) {
+                const rect = keyQuestionsContainer.getBoundingClientRect();
+                const inView = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (inView) {
+                    e.preventDefault();
+                    // Allow natural scrolling behavior
+                }
+            }
+        }
+    });
+
+    // ========================================
+    // 3. SMOOTH SCROLL TO SECTIONS FROM TOP NAV
+    // ========================================
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                // Account for sticky nav height
+                const navHeight = document.querySelector('.top-navigation').offsetHeight;
+                const targetPosition = targetSection.offsetTop - navHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Update active link
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+    });
+
+    // ========================================
+    // 4. INTERSECTION OBSERVER FOR ANIMATIONS
+    // ========================================
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in-visible');
+            }
+        });
+    }, observerOptions);
+
+    // Observe cards for entrance animations
+    const cardsToAnimate = document.querySelectorAll('.hypothesis-callout, .analysis-summary-section, .result-card, .insight-card, .recommendation-card');
+    cardsToAnimate.forEach(card => {
+        observer.observe(card);
+    });
+
+    // ========================================
+    // 5. HIGHLIGHT ACTIVE NAV LINK ON SCROLL
+    // ========================================
+    function updateActiveNavLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const navHeight = document.querySelector('.top-navigation') ? document.querySelector('.top-navigation').offsetHeight : 0;
+        const scrollPosition = window.scrollY + navHeight + 100;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+
+    // Throttle scroll event for performance
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+            window.cancelAnimationFrame(scrollTimeout);
+        }
+        scrollTimeout = window.requestAnimationFrame(function() {
+            updateActiveNavLink();
+        });
+    });
+
+    // Initial call
+    updateActiveNavLink();
+
+    // ========================================
+    // 6. ENHANCE SGQ CONTAINER INTERACTIONS
+    // ========================================
+    const sgqColumns = document.querySelectorAll('.sgq-container .column');
+    
+    sgqColumns.forEach(column => {
+        column.addEventListener('mouseenter', function() {
+            this.style.zIndex = '10';
+        });
+        
+        column.addEventListener('mouseleave', function() {
+            this.style.zIndex = '1';
+        });
+    });
+
+    // ========================================
+    // 7. LOG INITIALIZATION
+    // ========================================
+    console.log('✓ Obvious Gap Report loaded successfully');
+    console.log(`✓ Key Questions initialized with ${keyQuestionItems.length} questions`);
+    console.log('✓ Interactive features enabled: click navigation, smooth scrolling');
+});
+
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString('en-US', options);
+        document.getElementById('current-date').textContent = formattedDate;
+    });
+</script>
+
+</body>
+</html>
+</html>
