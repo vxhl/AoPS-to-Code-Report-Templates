@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -421,7 +422,8 @@ line-height: 1.6;
     align-items: center;
     gap: 12px;
     flex: 1;
-    height: 40px;
+    min-height: 40px;  /* Changed from fixed height to min-height */
+    height: auto; 
 
     .key-icon {
       width: 32px;
@@ -431,14 +433,22 @@ line-height: 1.6;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
       background: #BFB864;
     }
 
     p {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.4;
-      color: white;
+        margin: 0;
+        font-size: 15px;           /* Changed from 2.5vh to fixed size */
+        line-height: 1.5;         /* Better line spacing */
+        color: white;
+        font-weight: 500;          /* Changed from bold to medium */
+        word-wrap: break-word;     /* Allow long words to wrap */
+        overflow: visible;         /* Changed from hidden */
+        text-overflow: clip;       /* Changed from ellipsis */
+        white-space: normal;       /* Allow text wrapping */
+        flex: 1;                   /* Allow text to take available space */
+        min-width: 0;
     }
   }
 
@@ -565,6 +575,97 @@ line-height: 1.6;
     padding: 6px 6px 6px 15px;
     background-color: #262B2F;
   }
+
+/* Hypothesis Section Styles - Light Theme */
+.hypothesis-section {
+    background: #ffffff;
+    border: none;
+    border-radius: 0;
+    padding: 20px 25px;
+    margin: 20px 0;
+    border-top: 1px solid #e0e0e0;
+    border-left: 3px solid #26a6a6;
+}
+
+.hypothesis-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.hypothesis-icon-wrapper {
+    width: 32px;
+    height: 32px;
+    background: #f8f9fa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid #26a6a6;
+}
+
+.hypothesis-icon-wrapper svg {
+    width: 18px;
+    height: 18px;
+}
+
+.hypothesis-text-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hypothesis-label {
+    color: #26a6a6;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.hypothesis-text {
+    color: #333333;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+}
+
+.hypothesis-evaluation {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border-left: 2px solid #26a6a6;
+}
+
+.hypothesis-evaluation-label {
+    color: #26a6a6;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.hypothesis-evaluation-value {
+    color: #333333;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.hypothesis-evaluation-value.supported {
+    color: #4CAF50;
+}
+
+.hypothesis-evaluation-value.refuted {
+    color: #f44336;
+}
+
+.hypothesis-evaluation-value.inconclusive {
+    color: #FF9800;
+}
 
   .test-header {
     display: flex;
@@ -1905,16 +2006,25 @@ line-height: 1.6;
 }
 
 .question-content {
-    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    background-color: #1c786a;
+    flex-wrap: wrap;
 }
 
 .question-header {
-    color: #333333;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    background: #1c786a;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;        /* Increased padding for better spacing */
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+    min-height: auto;
 }
 
 .question-text {
@@ -1959,6 +2069,7 @@ line-height: 1.6;
     <!-- Top Navigation Bar -->
     <nav class="top-navigation">
         <div class="nav-container">
+            <a href="#introduction" class="nav-link">Introduction</a>
             <a href="#problem-framework" class="nav-link">1. Problem Framework</a>
             <div class="nav-dropdown">
                 <a href="#key-questions" class="nav-link">2. Key Questions</a>
@@ -2012,6 +2123,13 @@ line-height: 1.6;
             <p>{{ report_metadata.hypothesis }}</p>
         </div>
     </div>
+
+    <section id="introduction">
+        <h1>Introduction</h1>
+        <div class="section-header-card">
+            <p>{{ report_metadata.introduction_summary }}</p>
+        </div>
+    </section>
 
     <section id="problem-framework">
         <h1>1. Problem Framework</h1>
@@ -2096,7 +2214,8 @@ line-height: 1.6;
                                 </g>
                             </g>
                         </svg>
-                    </div> 
+                    </div>
+                   
 
                     <!-- Key Questions Section -->
                     <div class="editor keyquestion">
@@ -2206,6 +2325,39 @@ line-height: 1.6;
                         </div>
                     </div>
                 </div>
+
+                {% if kq.hypothesis %}
+                <div class="hypothesis-section">
+                <div class="hypothesis-content">
+                    <div class="hypothesis-icon-wrapper">
+                    <svg width="32" height="32" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="hypothesis" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#d4756e;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#c85a52;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="outerCircle" cx="30" cy="30" r="25" style="fill: url(#hypothesis);"></circle>
+                        <path d="M30 15c-4.4 0-8 3.6-8 8 0 2.8 1.5 5.3 3.7 6.7v3.8c0 1.4 1.1 2.5 2.5 2.5h3.6c1.4 0 2.5-1.1 2.5-2.5v-3.8c2.2-1.4 3.7-3.9 3.7-6.7 0-4.4-3.6-8-8-8zm1.8 13.5v4h-3.6v-4h3.6zm-1.8-10c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z" fill="white"/>
+                    </svg>
+                    </div>
+                    <div class="hypothesis-text-wrapper">
+                    <p class="hypothesis-label">Hypothesis</p>
+                    <p class="hypothesis-text">{{ kq.hypothesis }}</p>
+                    {% if kq.hypothesis_evaluation %}
+                    <!-- <div class="hypothesis-evaluation">
+                        <p class="hypothesis-evaluation-label">Evaluation:</p>
+                        <p class="hypothesis-evaluation-value {{ kq.hypothesis_evaluation|lower }}">
+                        {% if kq.hypothesis_evaluation|lower == 'supported' %}✓ Supported
+                        {% elif kq.hypothesis_evaluation|lower == 'refuted' %}✗ Refuted
+                        {% else %}? Inconclusive{% endif %}
+                        </p>
+                    </div> -->
+                    {% endif %}
+                    </div>
+                </div>
+                </div>
+                {% endif %}
                 
                 <!-- **ANALYSIS DETAILS FOR THIS KEY QUESTION** -->
                 <div class="evaluation-details-simple">
@@ -2221,6 +2373,7 @@ line-height: 1.6;
                     ] %}
                     
                     {% for category_key, category_label in eval_categories %}
+                    
                     <div class="evaluation-category-simple">
                         <div class="category-header-simple">
                             <span class="category-name-simple">{{ category_label }}</span>
@@ -2244,6 +2397,7 @@ line-height: 1.6;
 
         <!-- Analysis Summary -->
         <div class="analysis-summary-section">
+            <h3 style="color: #26a6a6; border-bottom: 3px solid #26a6a6; padding-bottom: 10px; margin-bottom: 20px;">Summary Analysis of Key Questions</h3>
             <p>{{ analysis_summary.introduction }}</p>
             
             {% for summary in analysis_summary.key_question_summaries %}
