@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -597,13 +595,13 @@ line-height: 1.6;
 .hypothesis-icon-wrapper {
     width: 32px;
     height: 32px;
-    background: #f8f9fa;
+    /* background: #f8f9fa; */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    border: 1px solid #26a6a6;
+    border: none;
 }
 
 .hypothesis-icon-wrapper svg {
@@ -2222,9 +2220,16 @@ line-height: 1.6;
 
     <!-- Hypothesis Callout -->
     <div class="hypothesis-callout">
-        <div class="callout-icon">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M10 2L12.5 7.5L18 8.5L14 12.5L15 18L10 15.5L5 18L6 12.5L2 8.5L7.5 7.5L10 2Z" fill="#26a6a6"/>
+        <div class="hypothesis-icon-wrapper">
+            <svg width="32" height="32" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="hypothesis" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#d4756e;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#c85a52;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="30" cy="30" r="30" fill="url(#hypothesis)" stroke="none"/>
+                <path d="M30 20c-3.3 0-6 2.7-6 6 0 2.1 1.1 4 2.8 5v2.8c0 1 0.8 1.8 1.8 1.8h2.8c1 0 1.8-0.8 1.8-1.8V31c1.7-1 2.8-2.9 2.8-5 0-3.3-2.7-6-6-6zm1.4 10.1v3h-2.8v-3h2.8zm-1.4-7.6c2.1 0 3.8 1.7 3.8 3.8s-1.7 3.8-3.8 3.8-3.8-1.7-3.8-3.8 1.7-3.8 3.8-3.8z" fill="white"/>
             </svg>
         </div>
         <div class="callout-content">
@@ -2446,8 +2451,8 @@ line-height: 1.6;
                                 <stop offset="100%" style="stop-color:#c85a52;stop-opacity:1" />
                             </linearGradient>
                         </defs>
-                        <circle class="outerCircle" cx="30" cy="30" r="25" style="fill: url(#hypothesis);"></circle>
-                        <path d="M30 15c-4.4 0-8 3.6-8 8 0 2.8 1.5 5.3 3.7 6.7v3.8c0 1.4 1.1 2.5 2.5 2.5h3.6c1.4 0 2.5-1.1 2.5-2.5v-3.8c2.2-1.4 3.7-3.9 3.7-6.7 0-4.4-3.6-8-8-8zm1.8 13.5v4h-3.6v-4h3.6zm-1.8-10c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z" fill="white"/>
+                        <circle cx="30" cy="30" r="30" fill="url(#hypothesis)" stroke="none"/>
+                        <path d="M30 20c-3.3 0-6 2.7-6 6 0 2.1 1.1 4 2.8 5v2.8c0 1 0.8 1.8 1.8 1.8h2.8c1 0 1.8-0.8 1.8-1.8V31c1.7-1 2.8-2.9 2.8-5 0-3.3-2.7-6-6-6zm1.4 10.1v3h-2.8v-3h2.8zm-1.4-7.6c2.1 0 3.8 1.7 3.8 3.8s-1.7 3.8-3.8 3.8-3.8-1.7-3.8-3.8 1.7-3.8 3.8-3.8z" fill="white"/>
                     </svg>
                     </div>
                     <div class="hypothesis-text-content">
@@ -2458,25 +2463,25 @@ line-height: 1.6;
                         <div class="hypothesis-chain">
                             <div class="chain-item">
                                 <div class="chain-number">1</div>
-                                <div class="chain-text">kq.hypothesis_chain[0]</div>
+                                <div class="chain-text">{{ kq.hypothesis_chain[0] }}</div>
                             </div>
                             <div class="chain-item">
                                 <div class="chain-number">2</div>
-                                <div class="chain-text">kq.hypothesis_chain[1]</div>
+                                <div class="chain-text">{{ kq.hypothesis_chain[1] }}</div>
                             </div>
                             <div class="chain-item">
                                 <div class="chain-number">3</div>
-                                <div class="chain-text">kq.hypothesis_chain[2]</div>
+                                <div class="chain-text">{{ kq.hypothesis_chain[2] }}</div>
                             </div>
                             <div class="chain-item">
                                 <div class="chain-number">4</div>
-                                <div class="chain-text">kq.hypothesis_chain[3]</div>
+                                <div class="chain-text">{{ kq.hypothesis_chain[3] }}</div>
                             </div>
                         </div>
     
                         <div class="hypothesis-summary">
                             <div class="hypothesis-summary-label">Summary</div>
-                            <p class="hypothesis-summary-text">kq.hypothesis_summary</p>
+                            <p class="hypothesis-summary-text">{{ kq.hypothesis_summary }}</p>
                         </div>
                     </div>
                 </div>
