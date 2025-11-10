@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -632,6 +633,114 @@ line-height: 1.6;
     line-height: 1.6;
     margin: 0;
     font-style: italic;
+}
+
+.hypothesis-text-content {
+    flex: 1;
+}
+
+.hypothesis-header {
+    display: flex;
+    background: #ffffff;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.hypothesis-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #c85a52;
+    margin: 0;
+}
+
+.hypothesis-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chain-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+}
+
+.chain-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 32px;
+    width: 2px;
+    height: calc(100% + 12px);
+    background: linear-gradient(180deg, #d4756e 0%, #c85a52 100%);
+}
+
+.chain-number {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #d4756e 0%, #c85a52 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 1;
+    position: relative;
+}
+
+.chain-text {
+    flex: 1;
+    color: #2c3e50;
+    line-height: 1.6;
+    padding-top: 2px;
+}
+
+.hypothesis-summary {
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    border-left: 3px solid #c85a52;
+}
+
+.hypothesis-summary-label {
+    font-weight: 600;
+    color: #c85a52;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.hypothesis-summary-text {
+    color: #2c3e50;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Arrow variant style */
+.hypothesis-chain.arrow-style .chain-item:not(:last-child)::after {
+    display: none;
+}
+
+.hypothesis-chain.arrow-style .chain-item:not(:last-child) .chain-arrow {
+    display: flex;
+    justify-content: center;
+    margin: 8px 0;
+    margin-left: 12px;
+}
+
+.chain-arrow {
+    display: none;
+}
+
+.chain-arrow svg {
+    width: 24px;
+    height: 24px;
+    fill: #c85a52;
 }
 
 .hypothesis-evaluation {
@@ -2341,19 +2450,34 @@ line-height: 1.6;
                         <path d="M30 15c-4.4 0-8 3.6-8 8 0 2.8 1.5 5.3 3.7 6.7v3.8c0 1.4 1.1 2.5 2.5 2.5h3.6c1.4 0 2.5-1.1 2.5-2.5v-3.8c2.2-1.4 3.7-3.9 3.7-6.7 0-4.4-3.6-8-8-8zm1.8 13.5v4h-3.6v-4h3.6zm-1.8-10c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z" fill="white"/>
                     </svg>
                     </div>
-                    <div class="hypothesis-text-wrapper">
-                    <p class="hypothesis-label">Hypothesis</p>
-                    <p class="hypothesis-text">{{ kq.hypothesis }}</p>
-                    {% if kq.hypothesis_evaluation %}
-                    <!-- <div class="hypothesis-evaluation">
-                        <p class="hypothesis-evaluation-label">Evaluation:</p>
-                        <p class="hypothesis-evaluation-value {{ kq.hypothesis_evaluation|lower }}">
-                        {% if kq.hypothesis_evaluation|lower == 'supported' %}✓ Supported
-                        {% elif kq.hypothesis_evaluation|lower == 'refuted' %}✗ Refuted
-                        {% else %}? Inconclusive{% endif %}
-                        </p>
-                    </div> -->
-                    {% endif %}
+                    <div class="hypothesis-text-content">
+                        <div class="hypothesis-header">
+                            <h3 class="hypothesis-title">Hypothesis</h3>
+                        </div>
+                        
+                        <div class="hypothesis-chain">
+                            <div class="chain-item">
+                                <div class="chain-number">1</div>
+                                <div class="chain-text">kq.hypothesis_chain[0]</div>
+                            </div>
+                            <div class="chain-item">
+                                <div class="chain-number">2</div>
+                                <div class="chain-text">kq.hypothesis_chain[1]</div>
+                            </div>
+                            <div class="chain-item">
+                                <div class="chain-number">3</div>
+                                <div class="chain-text">kq.hypothesis_chain[2]</div>
+                            </div>
+                            <div class="chain-item">
+                                <div class="chain-number">4</div>
+                                <div class="chain-text">kq.hypothesis_chain[3]</div>
+                            </div>
+                        </div>
+    
+                        <div class="hypothesis-summary">
+                            <div class="hypothesis-summary-label">Summary</div>
+                            <p class="hypothesis-summary-text">kq.hypothesis_summary</p>
+                        </div>
                     </div>
                 </div>
                 </div>
