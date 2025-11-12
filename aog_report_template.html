@@ -1814,7 +1814,7 @@ line-height: 1.6;
 }
 
 .evaluation-title {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: #333333;
     margin-bottom: 25px;
@@ -1838,7 +1838,7 @@ line-height: 1.6;
 }
 
 .category-name-simple {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: #333333;
     font-style: normal;
@@ -2213,7 +2213,9 @@ line-height: 1.6;
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16.001" class="pdna-icon"><defs><style>.a{fill:#3498DB;}</style></defs><path class="a" d="M15.782,2.97a.75.75,0,0,0-1.061,0,4.953,4.953,0,0,1-3.6,1.622,4.562,4.562,0,0,1,.482-3.4A.75.75,0,1,0,10.395.309,5.726,5.726,0,0,0,9.612,4.57,4.46,4.46,0,0,0,5.971,5.72C4.856,6.836,4.744,8.337,4.742,9.84a5.258,5.258,0,0,0-4.6,2.217.75.75,0,0,0,1.21.887,3.811,3.811,0,0,1,3.386-1.605c-.028,1.39-.228,2.561-1.384,3.273a.75.75,0,1,0,.786,1.278C5.914,14.8,6.2,13.079,6.24,11.4c1.462.083,2.947.1,4.069-1.148a5.022,5.022,0,0,0,1.01-4.171A6.439,6.439,0,0,0,15.782,4.03.75.75,0,0,0,15.782,2.97ZM9.194,9.249c-.645.716-1.551.727-2.953.648a4.3,4.3,0,0,1,.79-3.116c.718-.718,1.494-.745,2.777-.7A3.755,3.755,0,0,1,9.194,9.249Z" transform="translate(-0.001 0)"/></svg>
             <a href="{{ report_metadata.pdna_link or report_metadata.pdna_url or '#' }}"
             target="_blank" rel="noopener noreferrer"
-            class="summary-value-link">{{ report_metadata.pdna_id }}</a>
+            class="summary-value-link">{{ report_metadata.pdna_name
+                or report_metadata.pdna_label
+                or report_metadata.pdna_id }}</a>
         </div>
         <div class="summary-divider"></div>
         <div class="summary-item kq-item">
@@ -2221,11 +2223,6 @@ line-height: 1.6;
                 <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NC4wODYiIGhlaWdodD0iMzAuMTE5IiB2aWV3Qm94PSIwIDAgOTQuMDg2IDMwLjExOSI+CiAgPGcgaWQ9Ikdyb3VwXzE2NDY0MSIgZGF0YS1uYW1lPSJHcm91cCAxNjQ2NDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMTguMzE1IC03MzAuNDY5KSI+CiAgICA8cGF0aCBpZD0iUGF0aF84MzU3OCIgZGF0YS1uYW1lPSJQYXRoIDgzNTc4IiBkPSJNMS4xMDcsMEg5Mi45NzlhMS4yMTMsMS4yMTMsMCwwLDEsMS4xMDcsMS4zVjE5LjQzOWExLjIxMywxLjIxMywwLDAsMS0xLjEwNywxLjNIMFYxLjNBMS4yMTMsMS4yMTMsMCwwLDEsMS4xMDcsMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIxOC4zMTUgNzMwLjQ2OSkiIGZpbGw9IiMyNmE2YTYiLz4KICAgIDxwYXRoIGlkPSJQYXRoXzg2MTY1IiBkYXRhLW5hbWU9IlBhdGggODYxNjUiIGQ9Ik0tMzIuMjU4LDBoLTEuOTY4bC0zLjE2Ny00LjE2NGEyLjMsMi4zLDAsMCwxLS4yMTYtLjMxN2gtLjAyNVYwaC0xLjUxMVYtOS4xaDEuNTExdjQuMjc4aC4wMjVhMi4wOTQsMi4wOTQsMCwwLDEsLjIxNi0uMzExTC0zNC4zNC05LjFoMS44MDlMLTM2LjEtNC43MzVabTYuNjMtMi44NWgtNC40MzFBMS44NzMsMS44NzMsMCwwLDAtMjkuNS0xLjQ2YTIuMDY2LDIuMDY2LDAsMCwwLDEuNDU3LjQ4OSwzLjIxMiwzLjIxMiwwLDAsMCwxLjkxMS0uNjIyVi0uNDA2YTQuMzY1LDQuMzY1LDAsMCwxLTIuMzQ5LjU1OSwyLjkwNywyLjkwNywwLDAsMS0yLjI1LS44ODUsMy41NDIsMy41NDIsMCwwLDEtLjgxNi0yLjQ5MSwzLjQ2NCwzLjQ2NCwwLDAsMSwuOS0yLjQ3MiwyLjkzOCwyLjkzOCwwLDAsMSwyLjIzMS0uOTU1LDIuNTYyLDIuNTYyLDAsMCwxLDIuMDYzLjg1NywzLjU1OCwzLjU1OCwwLDAsMSwuNzMsMi4zOFpNLTI3LjA1LTMuODkxYTEuOSwxLjksMCwwLDAtLjM3NS0xLjIzNSwxLjI1MSwxLjI1MSwwLDAsMC0xLjAxNi0uNDQxLDEuNDI5LDEuNDI5LDAsMCwwLTEuMDc2LjQ2MywyLjExNywyLjExNywwLDAsMC0uNTQzLDEuMjEyWk0tMTguMjA1LTYuNWwtMi45MzMsNy41NDFBMi44NDEsMi44NDEsMCwwLDEtMjMuNywzLjA2YTMuMDc1LDMuMDc1LDAsMCwxLS43NzQtLjA4M1YxLjc1MmEyLjA1OSwyLjA1OSwwLDAsMCwuNjM1LjExNCwxLjMxLDEuMzEsMCwwLDAsMS4yMzEtLjgxMmwuNDM4LTEuMDY2TC0yNC43NTYtNi41aDEuNjMxbDEuNTQ5LDQuNzIzcS4wMjUuMDg5LjExNC40N2guMDMycS4wMzItLjE0Ni4xMTQtLjQ1N0wtMTkuNjkxLTYuNVpNLTYuOTY0LDIuOTlILTguNDM3Vi0xLjExN2gtLjAyNUEyLjI3NywyLjI3NywwLDAsMS0xMC42NC4xNTIsMi4zODIsMi4zODIsMCwwLDEtMTIuNTY2LS43MiwzLjYsMy42LDAsMCwxLTEzLjI5My0zLjFhMy45NDUsMy45NDUsMCwwLDEsLjgtMi41ODcsMi42MzEsMi42MzEsMCwwLDEsMi4xNDItLjk2OEEyLDIsMCwwLDEtOC40NjItNS42aC4wMjV2LS45aDEuNDczWk0tOC40MTgtMi45NThWLTMuOGExLjY4OSwxLjY4OSwwLDAsMC0uNDU0LTEuMTkzLDEuNSwxLjUsMCwwLDAtMS4xNTItLjQ4OSwxLjU0NCwxLjU0NCwwLDAsMC0xLjI5Mi42MTMsMi43NzYsMi43NzYsMCwwLDAtLjQ3MywxLjczLDIuNDA2LDIuNDA2LDAsMCwwLC40NTcsMS41NTUsMS40NDksMS40NDksMCwwLDAsMS4xODEuNTY1LDEuNTczLDEuNTczLDAsMCwwLDEuMjYzLS41NTJBMi4wNzEsMi4wNzEsMCwwLDAtOC40MTgtMi45NThaTTEuMDE3LDBILS40NTVWLTEuMDI4SC0uNDgxQTIuMTE5LDIuMTE5LDAsMCwxLTIuNDc0LjE1MnEtMi4zLDAtMi4zLTIuNzY4Vi02LjVoMS40NzN2My43MzJxMCwxLjc1MiwxLjM1MiwxLjc1MkExLjM2NiwxLjM2NiwwLDAsMC0uODc3LTEuNSwxLjg0OSwxLjg0OSwwLDAsMC0uNDU1LTIuNzYxVi02LjVIMS4wMTdabTcuODEtMi44NUg0LjRhMS44NzMsMS44NzMsMCwwLDAsLjU1NSwxLjM5LDIuMDY2LDIuMDY2LDAsMCwwLDEuNDU3LjQ4OUEzLjIxMiwzLjIxMiwwLDAsMCw4LjMyLTEuNTkzVi0uNDA2QTQuMzY1LDQuMzY1LDAsMCwxLDUuOTcxLjE1MmEyLjkwNywyLjkwNywwLDAsMS0yLjI1LS44ODUsMy41NDIsMy41NDIsMCwwLDEtLjgxNi0yLjQ5MUEzLjQ2NCwzLjQ2NCwwLDAsMSwzLjgtNS43YTIuOTM4LDIuOTM4LDAsMCwxLDIuMjMxLS45NTVBMi41NjIsMi41NjIsMCwwLDEsOC4xLTUuOGEzLjU1OCwzLjU1OCwwLDAsMSwuNzMsMi4zOFpNNy40MDYtMy44OTFhMS45LDEuOSwwLDAsMC0uMzc1LTEuMjM1LDEuMjUxLDEuMjUxLDAsMCwwLTEuMDE2LS40NDFBMS40MjksMS40MjksMCwwLDAsNC45NC01LjEsMi4xMTcsMi4xMTcsMCwwLDAsNC40LTMuODkxWk0xMC4yMTQtLjJWLTEuNTY4YTIuOTM4LDIuOTM4LDAsMCwwLDEuODIyLjYyOHExLjMzMywwLDEuMzMzLS43ODdhLjYyLjYyLDAsMCwwLS4xMTQtLjM3OCwxLjA5MSwxLjA5MSwwLDAsMC0uMzA4LS4yNzZBMi40MiwyLjQyLDAsMCwwLDEyLjQ5LTIuNnEtLjI2My0uMS0uNTg3LS4yMTZhNi4yMTYsNi4yMTYsMCwwLDEtLjcyLS4zMzYsMi4xNzcsMi4xNzcsMCwwLDEtLjUzMy0uNCwxLjUyMiwxLjUyMiwwLDAsMS0uMzIxLS41MTEsMS44ODIsMS44ODIsMCwwLDEtLjEwOC0uNjY3LDEuNTQsMS41NCwwLDAsMSwuMjIyLS44MjgsMS45MzEsMS45MzEsMCwwLDEsLjYtLjYsMi44NjEsMi44NjEsMCwwLDEsLjg1MS0uMzY4LDMuODk0LDMuODk0LDAsMCwxLC45ODQtLjEyNCw0LjQ3Myw0LjQ3MywwLDAsMSwxLjYxMi4yNzN2MS4yODlhMi43MTgsMi43MTgsMCwwLDAtMS41NzQtLjQ3LDIuMDU2LDIuMDU2LDAsMCwwLS41LjA1NywxLjMsMS4zLDAsMCwwLS4zODQuMTU5Ljc4MS43ODEsMCwwLDAtLjI0OC4yNDQuNTgzLjU4MywwLDAsMC0uMDg5LjMxNC42NzEuNjcxLDAsMCwwLC4wODkuMzU1LjgwNy44MDcsMCwwLDAsLjI2My4yNTcsMi4yNzUsMi4yNzUsMCwwLDAsLjQxOS4ycS4yNDQuMDkyLjU2Mi4yYTguMjA4LDguMjA4LDAsMCwxLC43NTIuMzQ5LDIuNTQyLDIuNTQyLDAsMCwxLC41NjguNEExLjU4LDEuNTgsMCwwLDEsMTQuNy0yLjVhMS43NjcsMS43NjcsMCwwLDEsLjEyNy43LDEuNiwxLjYsMCwwLDEtLjIyOS44NjMsMS45LDEuOSwwLDAsMS0uNjA5LjYwOSwyLjg1MiwyLjg1MiwwLDAsMS0uODc5LjM1OSw0LjU2Nyw0LjU2NywwLDAsMS0xLjA1MS4xMTdBNC40MjYsNC40MjYsMCwwLDEsMTAuMjE0LS4yWm05LjgyOS4xMzNhMi41NTIsMi41NTIsMCwwLDEtMS4xMzYuMjE2cS0xLjg5MiwwLTEuODkyLTEuODE1Vi01LjM0NUgxNS45M1YtNi41aDEuMDg1Vi04bDEuNDczLS40MTlWLTYuNWgxLjU1NXYxLjE1NUgxOC40ODh2My4yNWExLjI4MSwxLjI4MSwwLDAsMCwuMjA5LjgyNS44Ny44NywwLDAsMCwuNy4yNDgsMS4wMTIsMS4wMTIsMCwwLDAsLjY0Ny0uMjE2Wm0yLjQtNy43OTVhLjg4NS44ODUsMCwwLDEtLjYxOS0uMjM1Ljc3My43NzMsMCwwLDEtLjI1Ny0uNi43OTMuNzkzLDAsMCwxLC4yNTctLjYuODcyLjg3MiwwLDAsMSwuNjE5LS4yNDEuOS45LDAsMCwxLC42MzUuMjQxLjc4OC43ODgsMCwwLDEsLjI2LjYuNzc3Ljc3NywwLDAsMS0uMjYuNTg3QS44OTMuODkzLDAsMCwxLDIyLjQ0Ni03Ljg2NVpNMjMuMTc2LDBIMjEuN1YtNi41aDEuNDczWm01LjIuMTUyYTMuMjIyLDMuMjIyLDAsMCwxLTIuNC0uOTExLDMuMjksMy4yOSwwLDAsMS0uOS0yLjQxNSwzLjQyNCwzLjQyNCwwLDAsMSwuOTM2LTIuNTU4LDMuNDQzLDMuNDQzLDAsMCwxLDIuNTIzLS45MiwzLjExOCwzLjExOCwwLDAsMSwyLjM3NC45LDMuNDU3LDMuNDU3LDAsMCwxLC44NTEsMi40ODIsMy40MDcsMy40MDcsMCwwLDEtLjkxNywyLjQ5MUEzLjMsMy4zLDAsMCwxLDI4LjM3MS4xNTJabS4wNy01LjYzYTEuNjgxLDEuNjgxLDAsMCwwLTEuMzY1LjYsMi41MjUsMi41MjUsMCwwLDAtLjUsMS42NjNBMi4zNzgsMi4zNzgsMCwwLDAsMjcuMDgyLTEuNmExLjcwNiwxLjcwNiwwLDAsMCwxLjM1OC41ODcsMS42MTgsMS42MTgsMCwwLDAsMS4zMzYtLjU3OCwyLjU1NywyLjU1NywwLDAsMCwuNDY3LTEuNjQ0LDIuNiwyLjYsMCwwLDAtLjQ2Ny0xLjY1N0ExLjYxMSwxLjYxMSwwLDAsMCwyOC40NDEtNS40NzhaTTM5LjQzMSwwSDM3Ljk1OFYtMy42NjNxMC0xLjgyMi0xLjI4OS0xLjgyMmExLjQwNywxLjQwNywwLDAsMC0xLjExMS41LDEuODcyLDEuODcyLDAsMCwwLS40MzgsMS4yNzNWMEgzMy42NDJWLTYuNWgxLjQ3OXYxLjA3OWguMDI1YTIuMzE3LDIuMzE3LDAsMCwxLDIuMTA3LTEuMjMxLDEuOTYzLDEuOTYzLDAsMCwxLDEuNjE5LjY4OSwzLjA5MywzLjA5MywwLDAsMSwuNTU5LDEuOTlaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNjUuMjI3IDc0NC40NjkpIiBmaWxsPSIjZmZmIi8+CiAgICA8ZyBpZD0iUGF0aF84MzU3OSIgZGF0YS1uYW1lPSJQYXRoIDgzNTc5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTguNDIzIDc1OC4yMDMpIHJvdGF0ZSgtOTApIiBmaWxsPSIjMjZhNmE2Ij4KICAgICAgPHBhdGggZD0iTSA5LjI2NTQxNDIzNzk3NjA3NCA3LjI5Njg3ODgxNDY5NzI2NiBMIC0xLjAxMzA2NjI5MTgwOTA4MiA3LjI5Njg3ODgxNDY5NzI2NiBMIDYuNzgzODcyNjA0MzcwMTE3IDAuNzQxMTg0NTMyNjQyMzY0NSBMIDkuMjY1NDE0MjM3OTc2MDc0IDcuMjk2ODc4ODE0Njk3MjY2IFoiIHN0cm9rZT0ibm9uZSIvPgogICAgICA8cGF0aCBkPSJNIDYuNTY1ODk3OTQxNTg5MzU1IDEuNTc3NzAzNDc1OTUyMTQ4IEwgMC4zNTg1MzI5MDU1Nzg2MTMzIDYuNzk2ODc4ODE0Njk3MjY2IEwgOC41NDE1MjQ4ODcwODQ5NjEgNi43OTY4Nzg4MTQ2OTcyNjYgTCA2LjU2NTg5Nzk0MTU4OTM1NSAxLjU3NzcwMzQ3NTk1MjE0OCBNIDcuMDAxODQ0ODgyOTY1MDg4IC0wLjA5NTM0MDcyODc1OTc2NTYyIEwgOS45ODkzMDQ1NDI1NDE1MDQgNy43OTY4Nzg4MTQ2OTcyNjYgTCAtMi4zODQ2NzUwMjU5Mzk5NDEgNy43OTY4Nzg4MTQ2OTcyNjYgTCA3LjAwMTg0NDg4Mjk2NTA4OCAtMC4wOTUzNDA3Mjg3NTk3NjU2MiBaIiBzdHJva2U9Im5vbmUiIGZpbGw9IiMyNmE2YTYiLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPg==" alt="Key Questions" class="kq-icon" />:
                 <span class="summary-value">{{ key_questions|length }}</span>
             </div>
-        </div>
-        <div class="summary-divider"></div>
-        <div class="summary-item">
-            <span class="summary-label">Target:</span>
-            <span class="summary-value">{{ report_metadata.target }}</span>
         </div>
     </div>
 
@@ -2485,26 +2482,25 @@ line-height: 1.6;
                     <h5 class="evaluation-title">Analysis Details</h5>
                     
                     {# Default, generalized criteria (key, label) #}
-                    {{% set default_eval_categories = [
-                    ('relevance_scope', 'Relevance & Scope'),
-                    ('evidence_quality', 'Evidence & Data Quality'),
-                    ('methodology_rigor', 'Methodology & Rigor'),
-                    ('analysis_reasoning', 'Analysis & Reasoning'),
-                    ('communication_visuals', 'Communication & Visualization'),
-                    ('limitations_risks', 'Limitations & Risks'),
-                    ('actionability_impact', 'Actionability & Impact')
-                    ] %}}
-
-                    {# Allow backend to override: report_metadata.evaluation_categories = [(key,label), ...] #}
+                    {% set default_eval_categories = [
+                        ('relevance_scope', 'Relevance & Scope'),
+                        ('evidence_quality', 'Evidence & Data Quality'),
+                        ('methodology_rigor', 'Methodology & Rigor'),
+                        ('analysis_reasoning', 'Analysis & Reasoning'),
+                        ('communication_visuals', 'Communication & Visualization'),
+                        ('limitations_risks', 'Limitations & Risks'),
+                        ('actionability_impact', 'Actionability & Impact')
+                    ] %}
+                    
                     {% set eval_categories = report_metadata.get('evaluation_categories', default_eval_categories) %}
-
+                    
                     {% for category_key, category_label in eval_categories %}
                     <div class="evaluation-category-simple">
                         <div class="category-header-simple">
-                        <span class="category-name-simple">{{ category_label }}</span>
+                            <span class="category-name-simple">{{ category_label }}</span>
                         </div>
                         <div class="category-comment-simple">
-                        {{ kq.evaluation_details.get(category_key, {}).get('comment', '') }}
+                            {{ kq.evaluation_details.get(category_key, {}).get('comment', '') }}
                         </div>
                     </div>
                     {% endfor %}
@@ -2522,11 +2518,11 @@ line-height: 1.6;
 
         <!-- Analysis Summary -->
         <div class="analysis-summary-section">
-            <h3 style="color: #26a6a6; border-bottom: 3px solid #26a6a6; padding-bottom: 10px; margin-bottom: 20px;">Summary Analysis of Key Questions</h3>
+            <h3 style="color: #333333; border-bottom: 3px solid #26a6a6; padding-bottom: 10px; margin-bottom: 20px;">Summary Analysis of Key Questions</h3>
             <p>{{ analysis_summary.introduction }}</p>
             
             {% for summary in analysis_summary.key_question_summaries %}
-            <p><strong>{{ summary.question_number }} - {{ summary.title }}:</strong> {{ summary.summary }}</p>
+            <p><strong>{{ summary.title }} - {{ summary.question_number }}:</strong> {{ summary.summary }}</p>
             {% endfor %}
             
             <p><strong>Connection to Obvious Gap:</strong> {{ analysis_summary.gap_connection }}</p>
