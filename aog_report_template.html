@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -593,8 +595,8 @@ line-height: 1.6;
 }
 
 .hypothesis-icon-wrapper {
-    width: 32px;
-    height: 32px;
+    width: 52px;          /* was 32px */
+    height: 52px;
     /* background: #f8f9fa; */
     border-radius: 50%;
     display: flex;
@@ -602,11 +604,12 @@ line-height: 1.6;
     justify-content: center;
     flex-shrink: 0;
     border: none;
+    margin-top: 0;
 }
 
 .hypothesis-icon-wrapper svg {
-    width: 18px;
-    height: 18px;
+    width: 32px;
+    height: 32px;
 }
 
 .hypothesis-text-wrapper {
@@ -635,6 +638,7 @@ line-height: 1.6;
 
 .hypothesis-text-content {
     flex: 1;
+    margin-left: 12px;
 }
 
 .hypothesis-header {
@@ -643,13 +647,15 @@ line-height: 1.6;
     align-items: center;
     gap: 8px;
     margin-bottom: 16px;
+    margin: 0 0 6px 0;
 }
 
 .hypothesis-title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     color: #c85a52;
     margin: 0;
+    line-height: 1.1;
 }
 
 .hypothesis-chain {
@@ -660,16 +666,17 @@ line-height: 1.6;
 
 .chain-item {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    align-items: center;
+    gap: 10px;
     position: relative;
 }
+
 
 .chain-item:not(:last-child)::after {
     content: '';
     position: absolute;
-    left: 12px;
-    top: 32px;
+    left: 10px;
+    top: 22px;
     width: 2px;
     height: calc(100% + 12px);
     background: linear-gradient(180deg, #d4756e 0%, #c85a52 100%);
@@ -677,8 +684,8 @@ line-height: 1.6;
 
 .chain-number {
     flex-shrink: 0;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     background: linear-gradient(135deg, #d4756e 0%, #c85a52 100%);
     color: white;
     border-radius: 50%;
@@ -686,7 +693,9 @@ line-height: 1.6;
     align-items: center;
     justify-content: center;
     font-size: 12px;
+    text-align: center;
     font-weight: 600;
+    box-shadow: none;
     z-index: 1;
     position: relative;
 }
@@ -1829,9 +1838,9 @@ line-height: 1.6;
 }
 
 .category-name-simple {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    color: #26a6a6;
+    color: #333333;
     font-style: normal;
     text-transform: none;
     letter-spacing: 0;
@@ -2202,7 +2211,9 @@ line-height: 1.6;
         <div class="summary-item pdna-item">
             <span class="summary-label">PDNA:</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16.001" class="pdna-icon"><defs><style>.a{fill:#3498DB;}</style></defs><path class="a" d="M15.782,2.97a.75.75,0,0,0-1.061,0,4.953,4.953,0,0,1-3.6,1.622,4.562,4.562,0,0,1,.482-3.4A.75.75,0,1,0,10.395.309,5.726,5.726,0,0,0,9.612,4.57,4.46,4.46,0,0,0,5.971,5.72C4.856,6.836,4.744,8.337,4.742,9.84a5.258,5.258,0,0,0-4.6,2.217.75.75,0,0,0,1.21.887,3.811,3.811,0,0,1,3.386-1.605c-.028,1.39-.228,2.561-1.384,3.273a.75.75,0,1,0,.786,1.278C5.914,14.8,6.2,13.079,6.24,11.4c1.462.083,2.947.1,4.069-1.148a5.022,5.022,0,0,0,1.01-4.171A6.439,6.439,0,0,0,15.782,4.03.75.75,0,0,0,15.782,2.97ZM9.194,9.249c-.645.716-1.551.727-2.953.648a4.3,4.3,0,0,1,.79-3.116c.718-.718,1.494-.745,2.777-.7A3.755,3.755,0,0,1,9.194,9.249Z" transform="translate(-0.001 0)"/></svg>
-            <a href="#" target="_blank" rel="noopener noreferrer" class="summary-value-link">{{ report_metadata.pdna_label }}</a>
+            <a href="{{ report_metadata.pdna_link or report_metadata.pdna_url or '#' }}"
+            target="_blank" rel="noopener noreferrer"
+            class="summary-value-link">{{ report_metadata.pdna_id }}</a>
         </div>
         <div class="summary-divider"></div>
         <div class="summary-item kq-item">
@@ -2473,23 +2484,27 @@ line-height: 1.6;
                 <div class="evaluation-details-simple">
                     <h5 class="evaluation-title">Analysis Details</h5>
                     
-                    {% set eval_categories = [
-                        ('relevance_and_coverage', 'Relevance and Coverage'),
-                        ('data_quality_and_completeness', 'Data Quality and Completeness'),
-                        ('statistical_and_analytical_rigor', 'Statistical and Analytical Rigor'),
-                        ('interpretation_and_clinical_insight', 'Interpretation and Clinical Insight'),
-                        ('presentation_and_visualization', 'Presentation and Visualization'),
-                        ('limitations_and_future_scope', 'Limitations and Future Scope')
-                    ] %}
-                    
+                    {# Default, generalized criteria (key, label) #}
+                    {{% set default_eval_categories = [
+                    ('relevance_scope', 'Relevance & Scope'),
+                    ('evidence_quality', 'Evidence & Data Quality'),
+                    ('methodology_rigor', 'Methodology & Rigor'),
+                    ('analysis_reasoning', 'Analysis & Reasoning'),
+                    ('communication_visuals', 'Communication & Visualization'),
+                    ('limitations_risks', 'Limitations & Risks'),
+                    ('actionability_impact', 'Actionability & Impact')
+                    ] %}}
+
+                    {# Allow backend to override: report_metadata.evaluation_categories = [(key,label), ...] #}
+                    {% set eval_categories = report_metadata.get('evaluation_categories', default_eval_categories) %}
+
                     {% for category_key, category_label in eval_categories %}
-                    
                     <div class="evaluation-category-simple">
                         <div class="category-header-simple">
-                            <span class="category-name-simple">{{ category_label }}</span>
+                        <span class="category-name-simple">{{ category_label }}</span>
                         </div>
                         <div class="category-comment-simple">
-                            {{ kq.evaluation_details[category_key].comment }}
+                        {{ kq.evaluation_details.get(category_key, {}).get('comment', '') }}
                         </div>
                     </div>
                     {% endfor %}
