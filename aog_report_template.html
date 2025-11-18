@@ -8,7 +8,14 @@
 <title>{{ report_metadata.title }} - {{ report_metadata.subtitle }}</title>
 <style>
  /* Base Tufte CSS */
- html { font-size: 15px; }
+:root {
+  --font-heading: 2.4rem;
+  --font-subheading: 1.6rem;
+  --font-body: 1.2rem;
+  --font-small: 1rem;
+}
+
+html { font-size: 15px; }
 
  body {
   width: 100%;
@@ -18,6 +25,7 @@
   counter-reset: sidenote-counter;
   background-color: #fffff8;
   font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+  font-size: var(--font-body);
   display: flex;
 }
 /* Layout adjustments */
@@ -48,82 +56,104 @@
   padding: 0.35rem 0;
 }
 #sidebar a {
-  all: unset;
   color: #111;
-  text-decoration: none !important;
+  text-decoration: none;
   font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+  display: block;
+  padding: 0.25rem 0;
+  cursor: pointer;
 }
-#sidebar a:hover {
-  text-decoration: underline !important;
+#sidebar a:hover,
+#sidebar a.active {
+  color: #26a6a6;
+  font-weight: 600;
+  text-decoration: none;
 }
 #sidebar .sidebar-section {
-  font-weight: bold;
-  font-size: large;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  font-size: var(--font-body);
 }
 #sidebar .sidebar-subsection {
   margin-left: 1rem;
   font-weight: normal;
-  font-size: medium;
+  font-size: var(--font-body);
 }
 /* Typography */
 h1.title {
   font-weight: 400;
   margin-top: 4rem;
   margin-bottom: 1.5rem;
-  font-size: 3.2rem;
+  font-size: var(--font-heading);
   line-height: 1;
 }
 h1 {
   font-weight: 400;
   margin-top: 2.1rem;
   margin-bottom: 0;
-  font-size: 2.2rem;
+  font-size: var(--font-heading);
   line-height: 1;
 }
 h2 {
   font-weight: 400;
-  font-style: italic;
-  font-size: 1.7rem;
+  font-style: normal;
+  font-size: var(--font-subheading);
   margin-bottom: 0;
   line-height: 1;
 }
 h3.subtitle {
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 1.8rem;
+  font-size: var(--font-heading);
   display: block;
   line-height: 1;
 }
 h3 {
   font-weight: 400;
-  font-style: italic;
-  font-size: 1.5rem;
+  font-style: normal;
+  font-size: var(--font-subheading);
   margin-top: 1.5rem;
   margin-bottom: 0;
   line-height: 1;
 }
 h4 {
   font-weight: 400;
-  font-style: italic;
-  font-size: 1.3rem;
+  font-style: normal;
+  font-size: var(--font-subheading);
   margin-top: 1.3rem;
   margin-bottom: 0.5rem;
   line-height: 1;
 }
+h5, h6 {
+  font-weight: 600;
+  font-size: var(--font-subheading);
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
 h4.author, h4.date {
-  font-size: 1.4rem;
+  font-size: var(--font-subheading);
   font-weight: 400;
   margin: 1rem auto;
   line-height: 1;
+}
+
+.section-heading {
+  font-size: var(--font-subheading);
+  font-weight: 600;
+  color: #333333;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 /* Layout */
 article {
   position: relative;
   padding: 0rem 0rem 0rem 5rem;
 }
-p, ol, ul { font-size: 1.4rem; }
+p, ol, ul { font-size: var(--font-body); }
 p {
   line-height: 2rem;
   margin-top: 1.4rem;
@@ -651,7 +681,7 @@ line-height: 1.6;
 }
 
 .hypothesis-title {
-    font-size: 18px;
+    font-size: var(--font-subheading);
     font-weight: 600;
     color: #c85a52;
     margin: 0;
@@ -875,7 +905,7 @@ line-height: 1.6;
    ======================================== */
 #main-content {
     margin-left: 0;
-    width: 100%;
+    width: 80%;
 }
 
 /* ========================================
@@ -910,82 +940,13 @@ line-height: 1.6;
 /* ========================================
    2. TOP NAVIGATION BAR
    ======================================== */
-.top-navigation {
-    position: sticky;
-    top: 0;
-    background: white;
-    border-bottom: 2px solid #e0e5ed;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    z-index: 1000;
-    padding: 0;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.nav-link {
-    padding: 18px 30px;
-    color: #525866;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border-bottom: 3px solid transparent;
-    position: relative;
-}
-
-.nav-link:hover {
-    color: #26a6a6;
-    background: #f8f9fa;
-}
-
-.nav-link.active {
-    color: #26a6a6;
-    border-bottom-color: #26a6a6;
-    font-weight: 600;
-}
-
-/* Dropdown Navigation */
-.nav-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1001;
-    border-radius: 4px;
-    border: 1px solid #e0e5ed;
-    top: 100%;
-    left: 0;
-}
-
-.dropdown-content a {
-    color: #525866;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.dropdown-content a:hover {
-    background-color: #f8f9fa;
-    color: #26a6a6;
-}
-
-.nav-dropdown:hover .dropdown-content {
-    display: block;
+.gap-connection-highlight {
+    background: #f0fbfb;
+    border-left: 5px solid #26a6a6;
+    padding: 14px 18px;
+    margin-top: 18px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* ========================================
@@ -1140,7 +1101,7 @@ line-height: 1.6;
 
 .section-header-card p {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: var(--font-body);
     line-height: 1.6;
     color: #525866;
 }
@@ -1446,19 +1407,37 @@ line-height: 1.6;
 .analysis-summary-section h3 {
     margin-top: 0;
     margin-bottom: 1rem;
+    font-size: var(--font-subheading);
+    font-weight: 600;
     /* color: #2e7d32; */
-    font-size: 1.5rem;
 }
 
 .analysis-summary-section p {
     margin: 1rem 0;
-    font-size: 1.3rem;
+    font-size: var(--font-body);
     line-height: 1.8;
     color: #212529;
 }
 
-.analysis-summary-section p strong {
-    /* color: #2e7d32; */
+.summary-kq-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #f8fbfb;
+    border-left: 3px solid #c4e7e7;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 8px 0;
+}
+
+.summary-kq-text {
+    flex: 1;
+}
+
+.key-question-item:target .goal-card {
+    box-shadow: 0 0 0 3px rgba(38, 166, 166, 0.25);
+    transition: box-shadow 0.3s ease;
+    border-radius: 8px;
 }
 
 /* ========================================
@@ -1496,13 +1475,33 @@ line-height: 1.6;
 .result-card h3 {
     margin: 0 0 10px 0;
     color: #212529;
-    font-size: 1.3rem;
+    font-size: var(--font-subheading);
+    font-weight: 600;
 }
 
 .result-card p {
     margin: 0;
     color: #525866;
     line-height: 1.6;
+}
+
+.result-link {
+    display: inline-block;
+    margin-top: 12px;
+    color: #1e8585;
+    font-size: var(--font-body);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.result-link:hover {
+    text-decoration: underline;
+}
+
+.section-intro {
+    margin: 0 0 1rem 0;
+    color: #4b4f56;
+    font-size: var(--font-body);
 }
 
 .findings-card,
@@ -1643,7 +1642,8 @@ line-height: 1.6;
 
 .recommendation-card h4 {
     margin: 0 0 10px 0;
-    font-size: 1.1rem;
+    font-size: var(--font-subheading);
+    font-weight: 600;
     color: #212529;
 }
 
@@ -1677,17 +1677,6 @@ line-height: 1.6;
 /* ========================================
    9. RESPONSIVE DESIGN
    ======================================== */
-@media screen and (max-width: 1200px) {
-    .nav-container {
-        flex-wrap: wrap;
-    }
-
-    .nav-link {
-        padding: 15px 20px;
-        font-size: 14px;
-    }
-}
-
 @media screen and (max-width: 1620px) {
     .sgq-container {
         flex-direction: column;
@@ -1716,18 +1705,6 @@ line-height: 1.6;
 }
 
 @media screen and (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .nav-link {
-        width: 100%;
-        padding: 12px 20px;
-        text-align: center;
-        border-bottom: 1px solid #e0e5ed;
-    }
-
     .carousel-outer-container {
         padding: 0 50px;
     }
@@ -1764,7 +1741,7 @@ line-height: 1.6;
     }
 
     .analysis-summary-section h3 {
-        font-size: 1.3rem;
+        font-size: var(--font-subheading);
     }
 
     .insights-grid,
@@ -1805,32 +1782,29 @@ line-height: 1.6;
    11. SIMPLIFIED ANALYSIS DETAILS
    ======================================== */
 .evaluation-details-simple {
-    background: #ffffff;
+    background: transparent;
     border: none;
     border-radius: 0;
-    padding: 20px 25px;
-    margin: 20px 0;
-    border-top: 1px solid #e0e0e0;
+    padding: 0;
+    margin: 1.5rem 0;
 }
 
 .evaluation-title {
-    font-size: 1.3rem;
+    font-size: var(--font-subheading);
     font-weight: 600;
     color: #333333;
     margin-bottom: 25px;
     font-style: normal;
-    border-bottom: 2px solid #26a6a6;
     padding-bottom: 10px;
     display: inline-block;
 }
 
 .evaluation-category-simple {
     background: transparent;
-    padding: 10px 0;
-    margin: 10px 0;
+    padding: 12px 0;
+    margin: 0;
     border-radius: 0;
-    border-left: none;
-    border-bottom: 1px solid #f0f0f0;
+    border: none;
 }
 
 .category-header-simple {
@@ -1838,7 +1812,7 @@ line-height: 1.6;
 }
 
 .category-name-simple {
-    font-size: 1.2rem;
+    font-size: var(--font-subheading);
     font-weight: 600;
     color: #333333;
     font-style: normal;
@@ -1858,15 +1832,14 @@ line-height: 1.6;
     background: transparent;
     border: none;
     border-radius: 0;
-    padding: 15px 0;
-    margin: 15px 0;
-    border-top: 2px solid #26a6a6;
+    padding: 0;
+    margin: 1.5rem 0 0;
 }
 
 .overall-title {
-    font-size: 1.1rem;
+    font-size: var(--font-subheading);
     font-weight: 600;
-    color: #26a6a6;
+    color: #333333;
     margin-bottom: 10px;
     font-style: normal;
 }
@@ -2179,33 +2152,31 @@ line-height: 1.6;
 </style>
 </head>
 <body>
+<div id="sidebar">
+    <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#problem-framework">1. Problem Framework</a></li>
+        <li class="sidebar-section">
+            <a href="#key-questions">2. Key Questions</a>
+            <ul class="sidebar-subsection">
+                {% for kq in key_questions %}
+                <li><a href="#kq-{{ kq.question_number }}">Question {{ kq.question_number }}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li><a href="#results">3. Results</a></li>
+        <li><a href="#discussion-conclusion">4. Recommendations</a></li>
+    </ul>
+</div>
+
 <div id="main-content">
     <!-- UV Stamp - Fixed Position -->
-
-    <!-- Top Navigation Bar -->
-    <nav class="top-navigation">
-        <div class="nav-container">
-            <a href="#introduction" class="nav-link">Introduction</a>
-            <a href="#problem-framework" class="nav-link">1. Problem Framework</a>
-            <div class="nav-dropdown">
-                <a href="#key-questions" class="nav-link">2. Key Questions</a>
-                <div class="dropdown-content">
-                    {% for kq in key_questions %}
-                    <a href="#kq-{{ kq.question_number }}" class="dropdown-item">Question {{ kq.question_number }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-            <a href="#results" class="nav-link">3. Results</a>
-            <a href="#discussion-conclusion" class="nav-link">4. Recommendations</a>
-        </div>
-    </nav>
 
     <article>
     <h1 class="title">{{ report_metadata.title }}</h1>
     <h3 class="subtitle">{{ report_metadata.subtitle }}</h3>
     <h4 class="author">Author: <strong>{{ report_metadata.author }}</strong></h4>
-    <h4 id="current-date"></h4>
-
+    <h4 class="report-date" id="current-date"></h4>
     <!-- Enhanced Summary Bar -->
     <div class="summary-bar">
         <div class="summary-item pdna-item">
@@ -2229,9 +2200,7 @@ line-height: 1.6;
 
     <section id="introduction">
         <h1>Introduction</h1>
-        <div class="section-header-card">
-            <p>{{ report_metadata.introduction_summary }}</p>
-        </div>
+        <p>{{ report_metadata.introduction_summary }}</p>
     </section>
 
     <section id="problem-framework">
@@ -2517,35 +2486,55 @@ line-height: 1.6;
 
 
         <!-- Analysis Summary -->
-        <div class="analysis-summary-section">
-            <h3 style="color: #333333; border-bottom: 3px solid #26a6a6; padding-bottom: 10px; margin-bottom: 20px;">Summary Analysis of Key Questions</h3>
+        <div>
+            <h3 class="section-heading">Summary Analysis of Key Questions</h3>
             <p>{{ analysis_summary.introduction }}</p>
             
             {% for summary in analysis_summary.key_question_summaries %}
-            <p><strong>{{ summary.title }} - {{ summary.question_number }}:</strong> {{ summary.summary }}</p>
+            <div class="summary-kq-row">
+                <span class="key-icon">
+                    <div class="placeholder-icon key-question-icon">
+                        {{ summary.question_number }}
+                    </div>
+                </span>
+                <div class="summary-kq-text">
+                    <strong>{{ summary.title }}:</strong> {{ summary.summary }}
+                </div>
+            </div>
             {% endfor %}
             
-            <p><strong>Connection to Obvious Gap:</strong> {{ analysis_summary.gap_connection }}</p>
+            <div class="gap-connection-highlight">
+                <p><strong>Connection to Obvious Gap:</strong> {{ analysis_summary.gap_connection }}</p>
+            </div>
         </div>
     </section>
 
-     <section id="results">
+    <section id="results">
         <h1>3. Results and Key Findings</h1>
 
+        <p class="section-intro">Each key question produced a specific finding. Use these cards to see the distilled result and jump back to the detailed analysis if needed.</p>
+
+        {% set kq_results = analysis_summary.key_question_summaries or [] %}
+
+        {% if kq_results %}
         <div class="results-grid">
-            {% for card in results_section.cards %}
-            <div class="result-card {{ card.icon_type }}">
+            {% for summary in kq_results %}
+            <div class="result-card">
                 <div class="result-icon">
                     <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                        <circle cx="24" cy="24" r="20" fill="#4CAF50" opacity="0.1"/>
-                        <path d="M16 24l6 6L32 18" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="24" cy="24" r="20" fill="#26a6a6" opacity="0.08"/>
+                        <path d="M16 24l6 6L32 18" stroke="#26a6a6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <h3>{{ card.title }}</h3>
-                <p>{{ card.description }}</p>
+                <h3>Key Question {{ summary.question_number }} · {{ summary.title }}</h3>
+                <p>{{ summary.summary }}</p>
+                <a class="result-link" href="#kq-{{ summary.question_number }}">View analysis ↗</a>
             </div>
             {% endfor %}
         </div>
+        {% else %}
+        <p class="section-intro">Results cards will appear here once key question summaries are provided.</p>
+        {% endif %}
 
     </section>
 
@@ -2604,23 +2593,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const keyQuestionItems = document.querySelectorAll('.key-question-item');
     
     // Add click handlers to key question items for smooth scrolling
-    keyQuestionItems.forEach((item, index) => {
+    keyQuestionItems.forEach((item) => {
         item.addEventListener('click', function() {
             // Scroll to the key question itself
             item.scrollIntoView({ 
                 behavior: 'smooth',
                 block: 'start'
             });
-            
-            // Highlight the key question briefly
-            item.style.backgroundColor = '#e6f7f7';
-            item.style.border = '2px solid #26a6a6';
-            
-            // Remove highlight after 2 seconds
-            setTimeout(() => {
-                item.style.backgroundColor = '';
-                item.style.border = '';
-            }, 2000);
         });
     });
 
@@ -2644,9 +2623,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ========================================
-    // 3. SMOOTH SCROLL TO SECTIONS FROM TOP NAV
+    // 3. SMOOTH SCROLL TO SECTIONS FROM SIDE NAV
     // ========================================
-    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    const navLinks = document.querySelectorAll('#sidebar a[href^="#"]');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -2655,9 +2634,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                // Account for sticky nav height
-                const navHeight = document.querySelector('.top-navigation').offsetHeight;
-                const targetPosition = targetSection.offsetTop - navHeight - 20;
+                const targetPosition = targetSection.offsetTop - 20;
                 
                 window.scrollTo({
                     top: targetPosition,
@@ -2671,6 +2648,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // ========================================
     // ========================================
     // 4. INTERSECTION OBSERVER FOR ANIMATIONS
     // ========================================
@@ -2698,8 +2676,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     function updateActiveNavLink() {
         const sections = document.querySelectorAll('section[id]');
-        const navHeight = document.querySelector('.top-navigation') ? document.querySelector('.top-navigation').offsetHeight : 0;
-        const scrollPosition = window.scrollY + navHeight + 100;
+        const scrollPosition = window.scrollY + 100;
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
@@ -2758,9 +2735,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const today = new Date();
+        // Use the date from report_metadata instead of today's date
+        const reportDate = new Date('{{ report_metadata.generated_on }}');
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = today.toLocaleDateString('en-US', options);
+        const formattedDate = reportDate.toLocaleDateString('en-US', options);
         document.getElementById('current-date').textContent = formattedDate;
     });
 </script>
