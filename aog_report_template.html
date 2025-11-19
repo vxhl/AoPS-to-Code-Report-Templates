@@ -1355,10 +1355,9 @@ line-height: 1.6;
 /* .key-question-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+} */
 
-/* .key-question-item::after {
-    content: "Click to view detailed evaluation";
+.key-question-item::after {
     position: absolute;
     bottom: -25px;
     left: 0;
@@ -1367,11 +1366,11 @@ line-height: 1.6;
     opacity: 0;
     transition: opacity 0.3s ease;
     font-style: italic;
-} */
+}
 
-/* .key-question-item:hover::after {
+.key-question-item:hover::after {
     opacity: 1;
-} */ */
+}
 
 /* ========================================
    6. VALIDATION STATUS & ANALYSIS OUTCOME
@@ -2355,8 +2354,8 @@ line-height: 1.6;
         <!-- Key Questions with Integrated Evaluation Details -->
         <div class="key-questions-container">
             {% for kq in key_questions %}
-            {% set question_heading = kq.section_title or kq.question_title or kq.question_text %}
-            <h2 id="key-question-section-{{ loop.index }}" class="subsection-heading">3.{{ loop.index }} {{ question_heading }}</h2>
+            {% set kq.question_heading = kq.section_title or kq.question_title %}
+            <h2 id="key-question-section-{{ loop.index }}" class="subsection-heading">3.{{ loop.index }} {{ kq.question_heading }}</h2>
             <!-- Key Question {{ kq.question_number }} -->
             <div id="kq-{{ kq.question_number }}" class="key-question-item">
                 <div class="goal-card">
@@ -2503,14 +2502,15 @@ line-height: 1.6;
             <p>{{ analysis_summary.introduction }}</p>
             
             {% for summary in analysis_summary.key_question_summaries %}
-            <div>
+            <div style="display: flex; gap: 8px; align-items: flex-start;">
                 <span class="key-icon">
                     <div class="placeholder-icon key-question-icon">
                         {{ summary.question_number }}
                     </div>
                 </span>
                 <div class="summary-kq-text">
-                    <strong>{{ summary.title }}:</strong> {{ summary.summary }}
+                    <div><strong>{{ summary.title }}:</strong></div>
+                    <div>{{ summary.summary }}</div>
                 </div>
             </div>
             {% endfor %}
