@@ -149,6 +149,14 @@ h4.author, h4.date {
   margin-bottom: 1rem;
   line-height: 1.2;
 }
+
+.subsection-heading {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333333;
+  margin: 2rem 0 1rem;
+  line-height: 1.3;
+}
 /* Layout */
 article {
   position: relative;
@@ -1121,10 +1129,9 @@ line-height: 1.6;
 .sgq-container {
     display: flex;
     flex-direction: row;
-    align-items: stretch;
+    align-items: flex-start;
     justify-content: space-evenly;
-    gap: 20px;
-    min-height: 500px;
+    gap: 16px;
 }
 
 .sgq-container .column {
@@ -1265,7 +1272,10 @@ line-height: 1.6;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 0;
+    margin: -2px 0 -1px;
+    padding: 2px;
+    position: relative;
+    z-index: 1;
 }
 
 .situation-bridge {
@@ -1825,9 +1835,8 @@ line-height: 1.6;
 .category-comment-simple {
     color: #333333;
     line-height: 1.6;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     margin: 0;
-    font-style: italic;
 }
 
 .overall-evaluation-simple {
@@ -1849,7 +1858,7 @@ line-height: 1.6;
 .overall-summary {
     color: #333333;
     line-height: 1.6;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     margin: 0;
     font-weight: 500;
 }
@@ -2162,12 +2171,14 @@ line-height: 1.6;
             <a href="#key-questions">3. Key Questions</a>
             <ul class="sidebar-subsection">
                 {% for kq in key_questions %}
-                <li><a href="#kq-{{ kq.question_number }}">Question {{ kq.question_number }}</a></li>
+                <li><a href="#key-question-section-{{ loop.index }}">3.{{ loop.index }} {{ kq.section_title or kq.question_title or ('Question ' ~ kq.question_number) }}</a></li>
                 {% endfor %}
+                <li><a href="#key-summary-section">3.{{ (key_questions|length) + 1 }} Summary</a></li>
             </ul>
         </li>
         <li><a href="#results">4. Results</a></li>
         <li><a href="#discussion-conclusion">5. Recommendations</a></li>
+        <li><a href="#conclusion">6. Conclusion</a></li>
     </ul>
 </div>
 
@@ -2207,14 +2218,10 @@ line-height: 1.6;
 
     <section id="problem-framework">
         <h1>2. Problem Framework</h1>
-        
-        <!-- Section Header Card -->
-        <div class="section-header-card">
             <p>The following visual framework illustrates the journey from the current state through the obvious gap to the desired future state, incorporating the key questions that bridge this gap.</p>
-        </div>
 
         <!-- Enhanced SGQ Container -->
-        <div class="sgq-visual-container">
+        <div>
             <div class="sgq-container">
                 <!-- Current State Column -->
                 <div class="column editor situation">
@@ -2257,7 +2264,7 @@ line-height: 1.6;
 
                     <!-- Bridge Image -->
                     <div class="key-images">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="150" viewBox="0 0 629.819 318.435" style="width: 548px; margin:0; height:255px; display: block;">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="150" viewBox="0 0 629.819 318.435" style="width: 100%; max-width: 520px; margin:0 auto; height:190px; display: block;">
                             <defs>
                                 <style>.a{stroke:rgba(0,0,0,0);fill:url(#a);}.b{fill:url(#c);}.c{fill:#6cc4c4;}.d{fill:#005e66;}.e{fill:#26a6a6;}</style>
                                 <linearGradient id="a" x1="1" y1="0.5" x2="0" y2="0.5" gradientUnits="objectBoundingBox">
@@ -2345,9 +2352,12 @@ line-height: 1.6;
         <h1>3. Analysis: Key Questions Addressed</h1>
         <p>Each key question below has been thoroughly analyzed to validate the hypothesis and address the obvious gap identified in the problem framework.</p>
 
+        <h2 id="key-question-section-{{ loop.index }}" class="subsection-heading">3.{{ loop.index }} {{ question_heading }}</h2>
+
         <!-- Key Questions with Integrated Evaluation Details -->
         <div class="key-questions-container">
             {% for kq in key_questions %}
+            {% set question_heading = kq.section_title or kq.question_title or kq.question_text %}
             <!-- Key Question {{ kq.question_number }} -->
             <div id="kq-{{ kq.question_number }}">
                 <div class="goal-card">
@@ -2401,7 +2411,7 @@ line-height: 1.6;
                 </div>
 
                 {% if kq.hypothesis %}
-                <div class="hypothesis-section">
+                <div >
                 <div class="hypothesis-content">
                     <div class="hypothesis-icon-wrapper">
                     <svg width="32" height="32" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2487,13 +2497,14 @@ line-height: 1.6;
         </div>
 
 
+        {% set summary_section_number = (key_questions|length) + 1 %}
         <!-- Analysis Summary -->
-        <div>
-            <h3 class="section-heading">Summary Analysis of Key Questions</h3>
+        <div id="key-summary-section">
+            <h2 class="subsection-heading">3.{{ summary_section_number }} Summary Analysis of Key Questions</h2>
             <p>{{ analysis_summary.introduction }}</p>
             
             {% for summary in analysis_summary.key_question_summaries %}
-            <div class="summary-kq-row">
+            <div>
                 <span class="key-icon">
                     <div class="placeholder-icon key-question-icon">
                         {{ summary.question_number }}
@@ -2572,12 +2583,17 @@ line-height: 1.6;
         {% endfor %}
     </div>
 
-    <div class="future-research-card">
+    <!-- <div class="future-research-card">
         <h4>{{ recommendations.future_research.title }}</h4>
         <p>{{ recommendations.future_research.description }}</p>
-    </div>
+    </div> -->
     </section>
 </section>
+
+    <section id="conclusion">
+        <h1>6. Conclusion</h1>
+        <p>{{ report_metadata.conclusion_summary }}</p>
+    </section>
 
     </article>
 </div>
