@@ -1443,6 +1443,7 @@ line-height: 1.6;
 
 .summary-kq-text {
     flex: 1;
+    line-height: 1.8;
 }
 
 .key-question-item:target .goal-card {
@@ -2502,21 +2503,22 @@ line-height: 1.6;
             <p>{{ analysis_summary.introduction }}</p>
             
             {% for summary in analysis_summary.key_question_summaries %}
-            <div style="display: flex; gap: 8px; align-items: flex-start;">
+            <div style="display: flex; gap: 8px; align-items: flex-start; margin-bottom: 16px;">
                 <span class="key-icon">
                     <div class="placeholder-icon key-question-icon">
                         {{ summary.question_number }}
                     </div>
                 </span>
                 <div class="summary-kq-text">
-                    <div><strong>{{ summary.title }}:</strong></div>
-                    <div>{{ summary.summary }}</div>
+                    <strong>{{ summary.title }}:</strong>
+                    {{ summary.summary }}
                 </div>
             </div>
             {% endfor %}
             
-            <div class="gap-connection-highlight">
-                <p><strong>Connection to Obvious Gap:</strong> {{ analysis_summary.gap_connection }}</p>
+            <div class="gap-connection-box" style="margin-top: 24px;">
+                <strong>Connection to Obvious Gap:</strong>
+                <p style="margin-top: 8px;">{{ analysis_summary.gap_connection }}</p>
             </div>
         </div>
     </section>
@@ -2591,7 +2593,7 @@ line-height: 1.6;
 
     <section id="conclusion">
         <h1>6. Conclusion</h1>
-        <p>{{ report_metadata.conclusion_summary }}</p>
+        <p>{{ conclusion_summary }}</p>
     </section>
 
     </article>
