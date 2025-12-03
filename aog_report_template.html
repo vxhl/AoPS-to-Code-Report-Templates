@@ -1347,6 +1347,12 @@ line-height: 1.6;
     margin: 2rem 0;
 }
 
+.key-question-section,
+.key-question-item {
+    scroll-margin-top: 90px;
+}
+
+
 .key-question-item {
     margin-bottom: 30px;
     position: relative;
@@ -2173,9 +2179,10 @@ line-height: 1.6;
             <a href="#key-questions">3. Key Questions</a>
             <ul class="sidebar-subsection">
                 {% for kq in key_questions %}
-                <li><a href="#key-question-section-{{ loop.index }}">3.{{ loop.index }} {{ kq.section_title or kq.question_title or ('Question ' ~ kq.question_number) }}</a></li>
+                <li><a href="#kq-{{ kq.question_number }}">3.{{ loop.index }} {{ kq.section_title or kq.question_title or ('Question ' ~ kq.question_number) }}</a></li>
                 {% endfor %}
-                <li><a href="#key-summary-section">3.{{ (key_questions|length) + 1 }} Summary</a></li>
+                <li><a href="#key-question-summary">3.{{ (key_questions|length) + 1 }} Summary</a></li>
+
             </ul>
         </li>
         <li><a href="#results">4. Results</a></li>
@@ -2506,7 +2513,7 @@ line-height: 1.6;
 
         {% set summary_section_number = (key_questions|length) + 1 %}
         <!-- Analysis Summary -->
-        <div id="key-question-section-{{ (key_questions|length) + 1 }}" class="key-question-section">
+        <div id="key-question-summary" class="key-question-section">
             <h2>3.{{ (key_questions|length) + 1 }} Summary Analysis of Key Questions</h2>
             <p>{{ analysis_summary.introduction }}</p>
             
@@ -2674,17 +2681,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                const targetPosition = targetSection.offsetTop - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
-                
+
                 // Update active link
                 navLinks.forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
             }
+
         });
     });
 
