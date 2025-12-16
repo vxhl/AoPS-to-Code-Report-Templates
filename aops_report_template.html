@@ -220,6 +220,29 @@ hr {
   font-size: 13px;
   line-height: 1.6;
 }
+
+.reference-list {
+  padding-left: 20px;
+}
+
+.reference-list li {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+.reference-list .title {
+  font-style: italic;
+}
+
+.reference-list .authors {
+  font-weight: 500;
+}
+
+.reference-list a {
+  word-break: break-word;
+  color: #1a5fb4;
+  text-decoration: none;
+}
 /* Responsive design */
 @media screen and (max-width: 760px) {
     body {
@@ -470,8 +493,19 @@ hr {
     <p>{{ future_research|safe }}</p>
 </section>
 <section id="references">
-<h2>6. References </h2>
-{{references_from_musearch | safe }}
+  <h2>6. References</h2>
+
+  <ol class="reference-list">
+    {% for ref in references_from_musearch %}
+      <li>
+        <span class="authors">{{ ref.authors }}</span>
+        ({{ ref.year }}).
+        <span class="title">{{ ref.title }}</span>.
+        <em class="source">{{ ref.source }}</em>.
+        <a href="{{ ref.url }}" target="_blank">{{ ref.url }}</a>
+      </li>
+    {% endfor %}
+  </ol>
 </section>
 
     </article>
