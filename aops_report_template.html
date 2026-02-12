@@ -422,7 +422,7 @@ hr {
             {% for image in task.images %}
             {% set figure_number = "Figure 3." ~ task_index ~ ('.' ~ loop.index if task.images|length > 1 else '') %}
             <figure>
-            <img src="data:image/png;base64,{{ image.base64 }}" alt="{{ image.name }}">
+            <img src="{{ image.base64 }}" alt="{{ image.name }}">
             <figcaption>
                 <span class="figure-label">{{ figure_number }}:</span>
                 {{ image.caption }}
