@@ -12,7 +12,7 @@
     width: 100%;
     color: #111;
     max-width: 2530px;
-    overflow-x: none;
+    overflow-x: hidden;
     counter-reset: sidenote-counter;
     background-color: #fffff8;
     font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
@@ -131,7 +131,12 @@ p {
     width: 100%;
 }
 /* Tables */
-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
 .table-caption {
     margin-top: 0.5rem;
     text-align: center;
@@ -143,7 +148,12 @@ table { width: 100%; border-collapse: collapse; margin: 20px 0; }
 }
 th, td { border: 1px solid #ddd; padding: 8px; text-align: left; white-space: nowrap; }
 th { background-color: #f4f4f4; cursor: pointer; position: relative; }
-.table-container { overflow-x: auto; max-width: 100%; }
+.table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
 .figure { text-align: center; margin: 20px 0; }
 /* Tooltip for long header text */
 th[title]:hover::after {
@@ -442,9 +452,11 @@ hr {
             {% endfor %}
 
             {% for csv in task.csv_files %}
+            <div class="table-container">
             <table>
             {{ csv.html | safe }}
             </table>
+            </div>
             <div class="table-caption">
             <span class="table-label">
                 Table 3.{{ task_index }}{% if task.csv_files|length > 1 %}.{{ loop.index }}{% endif %}:
